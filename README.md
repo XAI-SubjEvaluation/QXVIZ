@@ -5,4 +5,5 @@ The repo is to open source our framework, which is proposed for subjective evalu
 
 ## Website
 The website of our framework: http://qxviz.ai/
-We wrote a technical report in 
+
+We wrote a technical report in <a href=Technical Description of the Website.pdf>
