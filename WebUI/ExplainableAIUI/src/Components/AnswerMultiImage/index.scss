@@ -1,0 +1,41 @@
+.answerOptionMultiImageContainer {
+    margin: 30px 0;
+    .singleImage{
+        margin:auto;
+    }
+    
+    .optionButton{
+        border-radius: 19px;
+        border: 1px solid #C4C4C4;
+        color: #0C2044;
+        margin-top: 5px;
+        margin-left: 40px;
+        &:hover{
+            color: #FFFFFF;
+            background: #0D65BE;
+            box-shadow: 0px 0px 8px rgba(69, 69, 69, 0.7);
+        }
+    }
+    .extraOptionButton{
+        margin-top:20px
+    }
+    .selectedButton{
+        color: #FFFFFF;
+            background: #0D65BE;
+            box-shadow: 0px 0px 8px rgba(69, 69, 69, 0.7);
+    }
+    .multiImageOptionCol{
+        text-align: center;
+    }
+    .cta{
+        margin-top: 20px;
+      }
+      .multiImageRowContainer{
+          .col-md-2{
+            &:not(:first-child){
+                margin-left:40px ;
+             }
+          }
+      }
+  }
+  
