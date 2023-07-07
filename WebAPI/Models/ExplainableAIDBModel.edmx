@@ -1,0 +1,569 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="explainableaidbModel.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.6" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="answer">
+          <Key>
+            <PropertyRef Name="AnswerID" />
+          </Key>
+          <Property Name="AnswerID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SurveryID" Type="int" Nullable="false" />
+          <Property Name="QuestionID" Type="int" Nullable="false" />
+          <Property Name="OfferedAnswerID" Type="int" Nullable="false" />
+          <Property Name="PersonID" Type="int" Nullable="false" />
+          <Property Name="Remarks" Type="longtext" />
+          <Property Name="TimeTaken" Type="int" />
+          <Property Name="SelectedImageURL" Type="varchar" MaxLength="255" />
+          <Property Name="AnswerDateTime" Type="datetime" Precision="6" />
+        </EntityType>
+        <EntityType Name="iterations">
+          <Key>
+            <PropertyRef Name="IterationID" />
+          </Key>
+          <Property Name="IterationID" Type="int" Nullable="false" />
+          <Property Name="IterationName" Type="varchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="offeredanswer">
+          <Key>
+            <PropertyRef Name="OfferedAnswerID" />
+          </Key>
+          <Property Name="OfferedAnswerID" Type="int" Nullable="false" />
+          <Property Name="AnswerText" Type="longtext" />
+        </EntityType>
+        <EntityType Name="person">
+          <Key>
+            <PropertyRef Name="PersonID" />
+          </Key>
+          <Property Name="PersonID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FirstName" Type="longtext" />
+          <Property Name="LastName" Type="longtext" />
+          <Property Name="Email" Type="longtext" />
+          <Property Name="Password" Type="longtext" />
+          <Property Name="Vcode" Type="longtext" />
+        </EntityType>
+        <EntityType Name="person_survey">
+          <Key>
+            <PropertyRef Name="PersonID" />
+            <PropertyRef Name="SurveyID" />
+          </Key>
+          <Property Name="PersonID" Type="int" Nullable="false" />
+          <Property Name="SurveyID" Type="int" Nullable="false" />
+          <Property Name="HasFakeLast" Type="bit" />
+          <Property Name="SuveryTakenCount" Type="int" />
+          <Property Name="IterationsCountLast" Type="int" />
+          <Property Name="DateLastSurveyTaken" Type="datetime" Precision="6" />
+        </EntityType>
+        <EntityType Name="question">
+          <Key>
+            <PropertyRef Name="QuestionID" />
+          </Key>
+          <Property Name="QuestionID" Type="int" Nullable="false" />
+          <Property Name="QuestionText" Type="longtext" />
+        </EntityType>
+        <EntityType Name="survery_iterations">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="SurveyID" Type="int" Nullable="false" />
+          <Property Name="IterationID" Type="int" Nullable="false" />
+          <Property Name="QuestionID" Type="int" Nullable="false" />
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="OrderNumber" Type="int" />
+          <Property Name="NextOrderNumber" Type="int" />
+        </EntityType>
+        <EntityType Name="survery_question_answer">
+          <Key>
+            <PropertyRef Name="SurveryID" />
+            <PropertyRef Name="QuestionID" />
+            <PropertyRef Name="OfferedAnswerID" />
+            <PropertyRef Name="isCorrectChoice" />
+            <PropertyRef Name="next_QID" />
+          </Key>
+          <Property Name="SurveryID" Type="int" Nullable="false" />
+          <Property Name="QuestionID" Type="int" Nullable="false" />
+          <Property Name="OfferedAnswerID" Type="int" Nullable="false" />
+          <Property Name="isCorrectChoice" Type="bit" Nullable="false" />
+          <Property Name="next_QID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="survey">
+          <Key>
+            <PropertyRef Name="SurveyID" />
+          </Key>
+          <Property Name="SurveyID" Type="int" Nullable="false" />
+          <Property Name="Description" Type="longtext" />
+          <Property Name="StartDate" Type="datetime" Precision="0" />
+          <Property Name="EndDate" Type="datetime" Precision="0" />
+          <Property Name="IsOpen" Type="tinyint" />
+          <Property Name="FixedQuestionsIDs" Type="varchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="survey_question">
+          <Key>
+            <PropertyRef Name="SurveryID" />
+            <PropertyRef Name="QuestionID" />
+          </Key>
+          <Property Name="SurveryID" Type="int" Nullable="false" />
+          <Property Name="QuestionID" Type="int" Nullable="false" />
+          <Property Name="PhotoFolderName" Type="varchar" MaxLength="255" />
+          <Property Name="SkipOnRepeat" Type="bit" />
+        </EntityType>
+        <Association Name="FK_Survery_Question_Answer_OfferedAnswer">
+          <End Role="offeredanswer" Type="Self.offeredanswer" Multiplicity="1" />
+          <End Role="survery_question_answer" Type="Self.survery_question_answer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="offeredanswer">
+              <PropertyRef Name="OfferedAnswerID" />
+            </Principal>
+            <Dependent Role="survery_question_answer">
+              <PropertyRef Name="OfferedAnswerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Survery_Question_Answer_Question">
+          <End Role="question" Type="Self.question" Multiplicity="1" />
+          <End Role="survery_question_answer" Type="Self.survery_question_answer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="question">
+              <PropertyRef Name="QuestionID" />
+            </Principal>
+            <Dependent Role="survery_question_answer">
+              <PropertyRef Name="QuestionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Survery_Question_Answer_Survey">
+          <End Role="survey" Type="Self.survey" Multiplicity="1" />
+          <End Role="survery_question_answer" Type="Self.survery_question_answer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="survey">
+              <PropertyRef Name="SurveyID" />
+            </Principal>
+            <Dependent Role="survery_question_answer">
+              <PropertyRef Name="SurveryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Survey_Question_Question">
+          <End Role="question" Type="Self.question" Multiplicity="1" />
+          <End Role="survey_question" Type="Self.survey_question" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="question">
+              <PropertyRef Name="QuestionID" />
+            </Principal>
+            <Dependent Role="survey_question">
+              <PropertyRef Name="QuestionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Survey_Question_Survey">
+          <End Role="survey" Type="Self.survey" Multiplicity="1" />
+          <End Role="survey_question" Type="Self.survey_question" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="survey">
+              <PropertyRef Name="SurveyID" />
+            </Principal>
+            <Dependent Role="survey_question">
+              <PropertyRef Name="SurveryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="explainableaidbModelStoreContainer">
+          <EntitySet Name="answer" EntityType="Self.answer" Schema="explainableaidb" store:Type="Tables" />
+          <EntitySet Name="iterations" EntityType="Self.iterations" Schema="explainableaidb" store:Type="Tables" />
+          <EntitySet Name="offeredanswer" EntityType="Self.offeredanswer" Schema="explainableaidb" store:Type="Tables" />
+          <EntitySet Name="person" EntityType="Self.person" Schema="explainableaidb" store:Type="Tables" />
+          <EntitySet Name="person_survey" EntityType="Self.person_survey" Schema="explainableaidb" store:Type="Tables" />
+          <EntitySet Name="question" EntityType="Self.question" Schema="explainableaidb" store:Type="Tables" />
+          <EntitySet Name="survery_iterations" EntityType="Self.survery_iterations" Schema="explainableaidb" store:Type="Tables" />
+          <EntitySet Name="survery_question_answer" EntityType="Self.survery_question_answer" Schema="explainableaidb" store:Type="Tables" />
+          <EntitySet Name="survey" EntityType="Self.survey" Schema="explainableaidb" store:Type="Tables" />
+          <EntitySet Name="survey_question" EntityType="Self.survey_question" Schema="explainableaidb" store:Type="Tables" />
+          <AssociationSet Name="FK_Survery_Question_Answer_OfferedAnswer" Association="Self.FK_Survery_Question_Answer_OfferedAnswer">
+            <End Role="offeredanswer" EntitySet="offeredanswer" />
+            <End Role="survery_question_answer" EntitySet="survery_question_answer" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Survery_Question_Answer_Question" Association="Self.FK_Survery_Question_Answer_Question">
+            <End Role="question" EntitySet="question" />
+            <End Role="survery_question_answer" EntitySet="survery_question_answer" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Survery_Question_Answer_Survey" Association="Self.FK_Survery_Question_Answer_Survey">
+            <End Role="survey" EntitySet="survey" />
+            <End Role="survery_question_answer" EntitySet="survery_question_answer" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Survey_Question_Question" Association="Self.FK_Survey_Question_Question">
+            <End Role="question" EntitySet="question" />
+            <End Role="survey_question" EntitySet="survey_question" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Survey_Question_Survey" Association="Self.FK_Survey_Question_Survey">
+            <End Role="survey" EntitySet="survey" />
+            <End Role="survey_question" EntitySet="survey_question" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="explainableaidbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="answer">
+          <Key>
+            <PropertyRef Name="AnswerID" />
+          </Key>
+          <Property Name="SurveryID" Type="Int32" Nullable="false" />
+          <Property Name="QuestionID" Type="Int32" Nullable="false" />
+          <Property Name="OfferedAnswerID" Type="Int32" Nullable="false" />
+          <Property Name="PersonID" Type="Int32" Nullable="false" />
+          <Property Name="Remarks" Type="String" MaxLength="1073741823" FixedLength="false" Unicode="false" />
+          <Property Name="TimeTaken" Type="Int32" />
+          <NavigationProperty Name="person" Relationship="Self.FK_Answer_Person" FromRole="answer" ToRole="person" />
+          <Property Name="SelectedImageURL" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="AnswerID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AnswerDateTime" Type="DateTime" />
+        </EntityType>
+        <EntityType Name="offeredanswer">
+          <Key>
+            <PropertyRef Name="OfferedAnswerID" />
+          </Key>
+          <Property Name="OfferedAnswerID" Type="Int32" Nullable="false" />
+          <Property Name="AnswerText" Type="String" MaxLength="1073741823" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="survery_question_answer" Relationship="Self.FK_Survery_Question_Answer_OfferedAnswer" FromRole="offeredanswer" ToRole="survery_question_answer" />
+        </EntityType>
+        <EntityType Name="person">
+          <Key>
+            <PropertyRef Name="PersonID" />
+          </Key>
+          <Property Name="PersonID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" MaxLength="1073741823" FixedLength="false" Unicode="false" />
+          <Property Name="LastName" Type="String" MaxLength="1073741823" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="1073741823" FixedLength="false" Unicode="false" />
+          <Property Name="Password" Type="String" MaxLength="1073741823" FixedLength="false" Unicode="false" />
+          <Property Name="Vcode" Type="String" MaxLength="1073741823" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="answers" Relationship="Self.FK_Answer_Person" FromRole="person" ToRole="answer" />
+        </EntityType>
+        <EntityType Name="question">
+          <Key>
+            <PropertyRef Name="QuestionID" />
+          </Key>
+          <Property Name="QuestionID" Type="Int32" Nullable="false" />
+          <Property Name="QuestionText" Type="String" MaxLength="1073741823" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="survery_question_answer" Relationship="Self.FK_Survery_Question_Answer_Question" FromRole="question" ToRole="survery_question_answer" />
+          <NavigationProperty Name="survey_question" Relationship="Self.FK_Survey_Question_Question" FromRole="question" ToRole="survey_question" />
+        </EntityType>
+        <EntityType Name="survery_question_answer">
+          <Key>
+            <PropertyRef Name="SurveryID" />
+            <PropertyRef Name="QuestionID" />
+            <PropertyRef Name="OfferedAnswerID" />
+            <PropertyRef Name="isCorrectChoice" />
+            <PropertyRef Name="next_QID" />
+          </Key>
+          <Property Name="SurveryID" Type="Int32" Nullable="false" />
+          <Property Name="QuestionID" Type="Int32" Nullable="false" />
+          <Property Name="OfferedAnswerID" Type="Int32" Nullable="false" />
+          <Property Name="isCorrectChoice" Type="Boolean" Nullable="false" />
+          <Property Name="next_QID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="offeredanswer" Relationship="Self.FK_Survery_Question_Answer_OfferedAnswer" FromRole="survery_question_answer" ToRole="offeredanswer" />
+          <NavigationProperty Name="question" Relationship="Self.FK_Survery_Question_Answer_Question" FromRole="survery_question_answer" ToRole="question" />
+          <NavigationProperty Name="survey" Relationship="Self.FK_Survery_Question_Answer_Survey" FromRole="survery_question_answer" ToRole="survey" />
+        </EntityType>
+        <EntityType Name="survey">
+          <Key>
+            <PropertyRef Name="SurveyID" />
+          </Key>
+          <Property Name="SurveyID" Type="Int32" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="1073741823" FixedLength="false" Unicode="false" />
+          <Property Name="StartDate" Type="DateTime" />
+          <Property Name="EndDate" Type="DateTime" />
+          <Property Name="IsOpen" Type="SByte" />
+          <NavigationProperty Name="survery_question_answer" Relationship="Self.FK_Survery_Question_Answer_Survey" FromRole="survey" ToRole="survery_question_answer" />
+          <NavigationProperty Name="survey_question" Relationship="Self.FK_Survey_Question_Survey" FromRole="survey" ToRole="survey_question" />
+          <Property Name="FixedQuestionsIDs" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="survey_question">
+          <Key>
+            <PropertyRef Name="SurveryID" />
+            <PropertyRef Name="QuestionID" />
+          </Key>
+          <Property Name="SurveryID" Type="Int32" Nullable="false" />
+          <Property Name="QuestionID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="question" Relationship="Self.FK_Survey_Question_Question" FromRole="survey_question" ToRole="question" />
+          <NavigationProperty Name="survey" Relationship="Self.FK_Survey_Question_Survey" FromRole="survey_question" ToRole="survey" />
+          <Property Name="PhotoFolderName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="SkipOnRepeat" Type="Boolean" />
+        </EntityType>
+        <Association Name="FK_Answer_Person">
+          <End Role="person" Type="Self.person" Multiplicity="1" />
+          <End Role="answer" Type="Self.answer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="person">
+              <PropertyRef Name="PersonID" />
+            </Principal>
+            <Dependent Role="answer">
+              <PropertyRef Name="PersonID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Survery_Question_Answer_OfferedAnswer">
+          <End Role="offeredanswer" Type="Self.offeredanswer" Multiplicity="1" />
+          <End Role="survery_question_answer" Type="Self.survery_question_answer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="offeredanswer">
+              <PropertyRef Name="OfferedAnswerID" />
+            </Principal>
+            <Dependent Role="survery_question_answer">
+              <PropertyRef Name="OfferedAnswerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Survery_Question_Answer_Question">
+          <End Role="question" Type="Self.question" Multiplicity="1" />
+          <End Role="survery_question_answer" Type="Self.survery_question_answer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="question">
+              <PropertyRef Name="QuestionID" />
+            </Principal>
+            <Dependent Role="survery_question_answer">
+              <PropertyRef Name="QuestionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Survey_Question_Question">
+          <End Role="question" Type="Self.question" Multiplicity="1" />
+          <End Role="survey_question" Type="Self.survey_question" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="question">
+              <PropertyRef Name="QuestionID" />
+            </Principal>
+            <Dependent Role="survey_question">
+              <PropertyRef Name="QuestionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Survery_Question_Answer_Survey">
+          <End Role="survey" Type="Self.survey" Multiplicity="1" />
+          <End Role="survery_question_answer" Type="Self.survery_question_answer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="survey">
+              <PropertyRef Name="SurveyID" />
+            </Principal>
+            <Dependent Role="survery_question_answer">
+              <PropertyRef Name="SurveryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Survey_Question_Survey">
+          <End Role="survey" Type="Self.survey" Multiplicity="1" />
+          <End Role="survey_question" Type="Self.survey_question" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="survey">
+              <PropertyRef Name="SurveyID" />
+            </Principal>
+            <Dependent Role="survey_question">
+              <PropertyRef Name="SurveryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="explainableaidbEntities2" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="answers" EntityType="Self.answer" />
+          <EntitySet Name="offeredanswers" EntityType="Self.offeredanswer" />
+          <EntitySet Name="people" EntityType="Self.person" />
+          <EntitySet Name="questions" EntityType="Self.question" />
+          <EntitySet Name="survery_question_answer" EntityType="Self.survery_question_answer" />
+          <EntitySet Name="surveys" EntityType="Self.survey" />
+          <EntitySet Name="survey_question" EntityType="Self.survey_question" />
+          <AssociationSet Name="FK_Answer_Person" Association="Self.FK_Answer_Person">
+            <End Role="person" EntitySet="people" />
+            <End Role="answer" EntitySet="answers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Survery_Question_Answer_OfferedAnswer" Association="Self.FK_Survery_Question_Answer_OfferedAnswer">
+            <End Role="offeredanswer" EntitySet="offeredanswers" />
+            <End Role="survery_question_answer" EntitySet="survery_question_answer" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Survery_Question_Answer_Question" Association="Self.FK_Survery_Question_Answer_Question">
+            <End Role="question" EntitySet="questions" />
+            <End Role="survery_question_answer" EntitySet="survery_question_answer" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Survey_Question_Question" Association="Self.FK_Survey_Question_Question">
+            <End Role="question" EntitySet="questions" />
+            <End Role="survey_question" EntitySet="survey_question" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Survery_Question_Answer_Survey" Association="Self.FK_Survery_Question_Answer_Survey">
+            <End Role="survey" EntitySet="surveys" />
+            <End Role="survery_question_answer" EntitySet="survery_question_answer" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Survey_Question_Survey" Association="Self.FK_Survey_Question_Survey">
+            <End Role="survey" EntitySet="surveys" />
+            <End Role="survey_question" EntitySet="survey_question" />
+          </AssociationSet>
+          <EntitySet Name="iterations" EntityType="explainableaidbModel.iteration" />
+          <EntitySet Name="survery_iterations" EntityType="explainableaidbModel.survery_iterations" />
+          <EntitySet Name="person_survey" EntityType="explainableaidbModel.person_survey" />
+        </EntityContainer>
+        <EntityType Name="iteration">
+          <Key>
+            <PropertyRef Name="IterationID" />
+          </Key>
+          <Property Name="IterationID" Type="Int32" Nullable="false" />
+          <Property Name="IterationName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="survery_iterations">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="SurveyID" Type="Int32" Nullable="false" />
+          <Property Name="IterationID" Type="Int32" Nullable="false" />
+          <Property Name="QuestionID" Type="Int32" Nullable="false" />
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="OrderNumber" Type="Int32" />
+          <Property Name="NextOrderNumber" Type="Int32" />
+        </EntityType>
+        <EntityType Name="person_survey">
+          <Key>
+            <PropertyRef Name="PersonID" />
+            <PropertyRef Name="SurveyID" />
+          </Key>
+          <Property Name="PersonID" Type="Int32" Nullable="false" />
+          <Property Name="SurveyID" Type="Int32" Nullable="false" />
+          <Property Name="HasFakeLast" Type="Boolean" />
+          <Property Name="SuveryTakenCount" Type="Int32" />
+          <Property Name="IterationsCountLast" Type="Int32" />
+          <Property Name="DateLastSurveyTaken" Type="DateTime" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="explainableaidbModelStoreContainer" CdmEntityContainer="explainableaidbEntities2">
+          <EntitySetMapping Name="answers">
+            <EntityTypeMapping TypeName="explainableaidbModel.answer">
+              <MappingFragment StoreEntitySet="answer">
+                <ScalarProperty Name="AnswerDateTime" ColumnName="AnswerDateTime" />
+                <ScalarProperty Name="AnswerID" ColumnName="AnswerID" />
+                <ScalarProperty Name="SelectedImageURL" ColumnName="SelectedImageURL" />
+                <ScalarProperty Name="SurveryID" ColumnName="SurveryID" />
+                <ScalarProperty Name="QuestionID" ColumnName="QuestionID" />
+                <ScalarProperty Name="OfferedAnswerID" ColumnName="OfferedAnswerID" />
+                <ScalarProperty Name="PersonID" ColumnName="PersonID" />
+                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+                <ScalarProperty Name="TimeTaken" ColumnName="TimeTaken" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="offeredanswers">
+            <EntityTypeMapping TypeName="explainableaidbModel.offeredanswer">
+              <MappingFragment StoreEntitySet="offeredanswer">
+                <ScalarProperty Name="OfferedAnswerID" ColumnName="OfferedAnswerID" />
+                <ScalarProperty Name="AnswerText" ColumnName="AnswerText" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="people">
+            <EntityTypeMapping TypeName="explainableaidbModel.person">
+              <MappingFragment StoreEntitySet="person">
+                <ScalarProperty Name="PersonID" ColumnName="PersonID" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Vcode" ColumnName="Vcode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="questions">
+            <EntityTypeMapping TypeName="explainableaidbModel.question">
+              <MappingFragment StoreEntitySet="question">
+                <ScalarProperty Name="QuestionID" ColumnName="QuestionID" />
+                <ScalarProperty Name="QuestionText" ColumnName="QuestionText" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="survery_question_answer">
+            <EntityTypeMapping TypeName="explainableaidbModel.survery_question_answer">
+              <MappingFragment StoreEntitySet="survery_question_answer">
+                <ScalarProperty Name="SurveryID" ColumnName="SurveryID" />
+                <ScalarProperty Name="QuestionID" ColumnName="QuestionID" />
+                <ScalarProperty Name="OfferedAnswerID" ColumnName="OfferedAnswerID" />
+                <ScalarProperty Name="isCorrectChoice" ColumnName="isCorrectChoice" />
+                <ScalarProperty Name="next_QID" ColumnName="next_QID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="surveys">
+            <EntityTypeMapping TypeName="explainableaidbModel.survey">
+              <MappingFragment StoreEntitySet="survey">
+                <ScalarProperty Name="FixedQuestionsIDs" ColumnName="FixedQuestionsIDs" />
+                <ScalarProperty Name="SurveyID" ColumnName="SurveyID" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+                <ScalarProperty Name="IsOpen" ColumnName="IsOpen" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="survey_question">
+            <EntityTypeMapping TypeName="explainableaidbModel.survey_question">
+              <MappingFragment StoreEntitySet="survey_question">
+                <ScalarProperty Name="SkipOnRepeat" ColumnName="SkipOnRepeat" />
+                <ScalarProperty Name="PhotoFolderName" ColumnName="PhotoFolderName" />
+                <ScalarProperty Name="SurveryID" ColumnName="SurveryID" />
+                <ScalarProperty Name="QuestionID" ColumnName="QuestionID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="iterations">
+            <EntityTypeMapping TypeName="explainableaidbModel.iteration">
+              <MappingFragment StoreEntitySet="iterations">
+                <ScalarProperty Name="IterationName" ColumnName="IterationName" />
+                <ScalarProperty Name="IterationID" ColumnName="IterationID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="survery_iterations">
+            <EntityTypeMapping TypeName="explainableaidbModel.survery_iterations">
+              <MappingFragment StoreEntitySet="survery_iterations">
+                <ScalarProperty Name="NextOrderNumber" ColumnName="NextOrderNumber" />
+                <ScalarProperty Name="OrderNumber" ColumnName="OrderNumber" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="QuestionID" ColumnName="QuestionID" />
+                <ScalarProperty Name="IterationID" ColumnName="IterationID" />
+                <ScalarProperty Name="SurveyID" ColumnName="SurveyID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="person_survey">
+            <EntityTypeMapping TypeName="explainableaidbModel.person_survey">
+              <MappingFragment StoreEntitySet="person_survey">
+                <ScalarProperty Name="DateLastSurveyTaken" ColumnName="DateLastSurveyTaken" />
+                <ScalarProperty Name="IterationsCountLast" ColumnName="IterationsCountLast" />
+                <ScalarProperty Name="SuveryTakenCount" ColumnName="SuveryTakenCount" />
+                <ScalarProperty Name="HasFakeLast" ColumnName="HasFakeLast" />
+                <ScalarProperty Name="SurveyID" ColumnName="SurveyID" />
+                <ScalarProperty Name="PersonID" ColumnName="PersonID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

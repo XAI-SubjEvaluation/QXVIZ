@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="76f2a04a2a0c440d9efd7db04e591622" Name="Diagram1">
+        <EntityTypeShape EntityType="explainableaidbModel.answer" Width="1.5" PointX="6.375" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="explainableaidbModel.offeredanswer" Width="1.5" PointX="0.75" PointY="1.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="explainableaidbModel.person" Width="1.5" PointX="8.375" PointY="3.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="explainableaidbModel.question" Width="1.5" PointX="0.75" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="explainableaidbModel.survery_question_answer" Width="1.5" PointX="4.625" PointY="3.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="explainableaidbModel.survey" Width="1.5" PointX="2.875" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="explainableaidbModel.survey_question" Width="1.5" PointX="8.75" PointY="0.75" IsExpanded="true" />
+        <AssociationConnector Association="explainableaidbModel.FK_Answer_Person" ManuallyRouted="false" />
+        <AssociationConnector Association="explainableaidbModel.FK_Survery_Question_Answer_OfferedAnswer" ManuallyRouted="false" />
+        <AssociationConnector Association="explainableaidbModel.FK_Survery_Question_Answer_Question" ManuallyRouted="false" />
+        <AssociationConnector Association="explainableaidbModel.FK_Survey_Question_Question" ManuallyRouted="false" />
+        <AssociationConnector Association="explainableaidbModel.FK_Survery_Question_Answer_Survey" ManuallyRouted="false" />
+        <AssociationConnector Association="explainableaidbModel.FK_Survey_Question_Survey" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="explainableaidbModel.iteration" Width="1.5" PointX="0.75" PointY="6.75" />
+        <EntityTypeShape EntityType="explainableaidbModel.survery_iterations" Width="1.5" PointX="4.5" PointY="6.375" />
+        <EntityTypeShape EntityType="explainableaidbModel.person_survey" Width="1.5" PointX="6.375" PointY="6.25" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
