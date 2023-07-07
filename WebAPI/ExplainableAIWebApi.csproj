@@ -1,0 +1,1712 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="packages\Microsoft.VisualStudio.Azure.Containers.Tools.Targets.1.11.1\build\Microsoft.VisualStudio.Azure.Containers.Tools.Targets.props" Condition="Exists('packages\Microsoft.VisualStudio.Azure.Containers.Tools.Targets.1.11.1\build\Microsoft.VisualStudio.Azure.Containers.Tools.Targets.props')" />
+  <Import Project="packages\EntityFramework.6.4.4\build\EntityFramework.props" Condition="Exists('packages\EntityFramework.6.4.4\build\EntityFramework.props')" />
+  <Import Project="packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{B29B6090-0A84-4D0C-81DD-CF122BE81B1A}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ExplainableAIWebApi</RootNamespace>
+    <AssemblyName>ExplainableAIWebApi</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>true</UseIISExpress>
+    <Use64BitIISExpress />
+    <IISExpressSSLPort>44372</IISExpressSSLPort>
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <DockerLaunchAction>LaunchBrowser</DockerLaunchAction>
+    <DockerLaunchUrl>http://{ServiceIPAddress}</DockerLaunchUrl>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="BouncyCastle.Crypto, Version=1.8.5.0, Culture=neutral, PublicKeyToken=0e99375e54769942">
+      <HintPath>packages\BouncyCastle.1.8.5\lib\BouncyCastle.Crypto.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>packages\EntityFramework.6.4.4\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>packages\EntityFramework.6.4.4\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.Protobuf, Version=3.14.0.0, Culture=neutral, PublicKeyToken=a7d26565bac4d604, processorArchitecture=MSIL">
+      <HintPath>packages\Google.Protobuf.3.14.0\lib\net45\Google.Protobuf.dll</HintPath>
+    </Reference>
+    <Reference Include="K4os.Compression.LZ4, Version=1.2.6.0, Culture=neutral, PublicKeyToken=2186fa9121ef231d, processorArchitecture=MSIL">
+      <HintPath>packages\K4os.Compression.LZ4.1.2.6\lib\net46\K4os.Compression.LZ4.dll</HintPath>
+    </Reference>
+    <Reference Include="K4os.Compression.LZ4.Streams, Version=1.2.6.0, Culture=neutral, PublicKeyToken=2186fa9121ef231d, processorArchitecture=MSIL">
+      <HintPath>packages\K4os.Compression.LZ4.Streams.1.2.6\lib\net46\K4os.Compression.LZ4.Streams.dll</HintPath>
+    </Reference>
+    <Reference Include="K4os.Hash.xxHash, Version=1.0.6.0, Culture=neutral, PublicKeyToken=32cd54395057cec3, processorArchitecture=MSIL">
+      <HintPath>packages\K4os.Hash.xxHash.1.0.6\lib\net46\K4os.Hash.xxHash.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="MySql.Data, Version=8.0.28.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <HintPath>packages\MySql.Data.8.0.28\lib\net452\MySql.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="MySql.Data.EntityFramework, Version=8.0.28.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <HintPath>packages\MySql.Data.EntityFramework.8.0.28\lib\net452\MySql.Data.EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel" />
+    <Reference Include="System.Configuration.Install" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Management" />
+    <Reference Include="System.Memory, Version=4.0.1.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\System.Memory.4.5.4\lib\net461\System.Memory.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Numerics.Vectors, Version=4.1.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>packages\System.Numerics.Vectors.4.5.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>packages\System.Runtime.CompilerServices.Unsafe.5.0.0\lib\net45\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security" />
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.Web.Cors, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.AspNet.Cors.5.2.7\lib\net45\System.Web.Cors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Http.Cors, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.AspNet.WebApi.Cors.5.2.7\lib\net45\System.Web.Http.Cors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http">
+    </Reference>
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.AspNet.WebApi.Client.5.2.7\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest">
+    </Reference>
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.AspNet.WebApi.Core.5.2.7\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.AspNet.WebApi.WebHost.5.2.7\lib\net45\System.Web.Http.WebHost.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>packages\Microsoft.AspNet.Mvc.5.2.7\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Optimization">
+      <HintPath>packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>packages\Microsoft.AspNet.Razor.3.2.7\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="Ubiety.Dns.Core, Version=2.2.1.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <HintPath>packages\MySql.Data.8.0.28\lib\net452\Ubiety.Dns.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="WebGrease">
+      <Private>True</Private>
+      <HintPath>packages\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
+    </Reference>
+    <Reference Include="Antlr3.Runtime">
+      <Private>True</Private>
+      <HintPath>packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="ZstdNet, Version=1.4.5.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <HintPath>packages\MySql.Data.8.0.28\lib\net452\ZstdNet.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform">
+      <HintPath>packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Areas\HelpPage\ApiDescriptionExtensions.cs" />
+    <Compile Include="Areas\HelpPage\App_Start\HelpPageConfig.cs" />
+    <Compile Include="Areas\HelpPage\Controllers\HelpController.cs" />
+    <Compile Include="Areas\HelpPage\HelpPageAreaRegistration.cs" />
+    <Compile Include="Areas\HelpPage\HelpPageConfigurationExtensions.cs" />
+    <Compile Include="Areas\HelpPage\ModelDescriptions\CollectionModelDescription.cs" />
+    <Compile Include="Areas\HelpPage\ModelDescriptions\ComplexTypeModelDescription.cs" />
+    <Compile Include="Areas\HelpPage\ModelDescriptions\DictionaryModelDescription.cs" />
+    <Compile Include="Areas\HelpPage\ModelDescriptions\EnumTypeModelDescription.cs" />
+    <Compile Include="Areas\HelpPage\ModelDescriptions\EnumValueDescription.cs" />
+    <Compile Include="Areas\HelpPage\ModelDescriptions\IModelDocumentationProvider.cs" />
+    <Compile Include="Areas\HelpPage\ModelDescriptions\KeyValuePairModelDescription.cs" />
+    <Compile Include="Areas\HelpPage\ModelDescriptions\ModelDescription.cs" />
+    <Compile Include="Areas\HelpPage\ModelDescriptions\ModelDescriptionGenerator.cs" />
+    <Compile Include="Areas\HelpPage\ModelDescriptions\ModelNameAttribute.cs" />
+    <Compile Include="Areas\HelpPage\ModelDescriptions\ModelNameHelper.cs" />
+    <Compile Include="Areas\HelpPage\ModelDescriptions\ParameterAnnotation.cs" />
+    <Compile Include="Areas\HelpPage\ModelDescriptions\ParameterDescription.cs" />
+    <Compile Include="Areas\HelpPage\ModelDescriptions\SimpleTypeModelDescription.cs" />
+    <Compile Include="Areas\HelpPage\Models\HelpPageApiModel.cs" />
+    <Compile Include="Areas\HelpPage\SampleGeneration\HelpPageSampleGenerator.cs" />
+    <Compile Include="Areas\HelpPage\SampleGeneration\HelpPageSampleKey.cs" />
+    <Compile Include="Areas\HelpPage\SampleGeneration\ImageSample.cs" />
+    <Compile Include="Areas\HelpPage\SampleGeneration\InvalidSample.cs" />
+    <Compile Include="Areas\HelpPage\SampleGeneration\ObjectGenerator.cs" />
+    <Compile Include="Areas\HelpPage\SampleGeneration\SampleDirection.cs" />
+    <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
+    <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
+    <Compile Include="Controllers\AnswerController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\PersonController.cs" />
+    <Compile Include="Controllers\SurveyController.cs" />
+    <Compile Include="Controllers\ValuesController.cs" />
+    <Compile Include="DTO\AnswerDTO.cs" />
+    <Compile Include="DTO\PersonDTO.cs" />
+    <Compile Include="DTO\QuestionDTO.cs" />
+    <Compile Include="DTO\SurveyDTO.cs" />
+    <Compile Include="DTO\SurveyQuestionAnswerUserDTO.cs" />
+    <Compile Include="Filters\BasicAuthenticationAttribute.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Helpers\Helpers.cs" />
+    <Compile Include="Models\answer.cs">
+      <DependentUpon>ExplainableAIDBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ExplainableAIDBModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ExplainableAIDBModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ExplainableAIDBModel.cs">
+      <DependentUpon>ExplainableAIDBModel.tt</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="Models\ExplainableAIDBModel.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>ExplainableAIDBModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\iteration.cs">
+      <DependentUpon>ExplainableAIDBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\offeredanswer.cs">
+      <DependentUpon>ExplainableAIDBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\person.cs">
+      <DependentUpon>ExplainableAIDBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\person_survey.cs">
+      <DependentUpon>ExplainableAIDBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\question.cs">
+      <DependentUpon>ExplainableAIDBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\survery_iterations.cs">
+      <DependentUpon>ExplainableAIDBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\survery_question_answer.cs">
+      <DependentUpon>ExplainableAIDBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\survey.cs">
+      <DependentUpon>ExplainableAIDBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\survey_question.cs">
+      <DependentUpon>ExplainableAIDBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\HelpPage\HelpPage.css" />
+    <Content Include="Content\bootstrap-theme.css" />
+    <Content Include="Content\bootstrap-theme.min.css" />
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\QuestionPhotos\FaceImagesWeb\fake\28010.png" />
+    <Content Include="Content\QuestionPhotos\FaceImagesWeb\fake\28048.png" />
+    <Content Include="Content\QuestionPhotos\FaceImagesWeb\fake\28071.png" />
+    <Content Include="Content\QuestionPhotos\FaceImagesWeb\fake\28133.png" />
+    <Content Include="Content\QuestionPhotos\FaceImagesWeb\fake\28164.png" />
+    <Content Include="Content\QuestionPhotos\FaceImagesWeb\fake\28188.png" />
+    <Content Include="Content\QuestionPhotos\FaceImagesWeb\fake\28191.png" />
+    <Content Include="Content\QuestionPhotos\FaceImagesWeb\fake\28201.png" />
+    <Content Include="Content\QuestionPhotos\FaceImagesWeb\fake\28204.png" />
+    <Content Include="Content\QuestionPhotos\FaceImagesWeb\fake\28205.png" />
+    <Content Include="Content\QuestionPhotos\FaceImagesWeb\fake\28220.png" />
+    <Content Include="Content\QuestionPhotos\FaceImagesWeb\fake\28231.png" />
+    <Content Include="Content\QuestionPhotos\FaceImagesWeb\fake\28258.png" />
+    <Content Include="Content\QuestionPhotos\FaceImagesWeb\fake\28262.png" />
+    <Content Include="Content\QuestionPhotos\FaceImagesWeb\fake\28352.png" />
+    <Content Include="Content\QuestionPhotos\FaceImagesWeb\fake\28489.png" />
+    <Content Include="Content\QuestionPhotos\FaceImagesWeb\fake\28496.png" />
+    <Content Include="Content\QuestionPhotos\FaceImagesWeb\fake\28499.png" />
+    <Content Include="Content\QuestionPhotos\FaceImagesWeb\fake\28504.png" />
+    <Content Include="Content\QuestionPhotos\FaceImagesWeb\fake\28512.png" />
+    <Content Include="Content\QuestionPhotos\FaceImagesWeb\fake\28577.png" />
+    <Content Include="Content\QuestionPhotos\FaceImagesWeb\fake\28650.png" />
+    <Content Include="Content\QuestionPhotos\FaceImagesWeb\fake\28656.png" />
+    <Content Include="Content\QuestionPhotos\FaceImagesWeb\fake\28667.png" />
+    <Content Include="Content\QuestionPhotos\FaceImagesWeb\fake\28670.png" />
+    <Content Include="Content\QuestionPhotos\FaceImagesWeb\fake\28676.png" />
+    <Content Include="Content\QuestionPhotos\FaceImagesWeb\fake\28680.png" />
+    <Content Include="Content\QuestionPhotos\FaceImagesWeb\fake\28722.png" />
+    <Content Include="Content\QuestionPhotos\FaceImagesWeb\fake\28725.png" />
+    <Content Include="Content\QuestionPhotos\FaceImagesWeb\fake\28780.png" />
+    <Content Include="Content\QuestionPhotos\FaceImagesWeb\fake\28821.png" />
+    <Content Include="Content\QuestionPhotos\FaceImagesWeb\fake\28825.png" />
+    <Content Include="Content\QuestionPhotos\FaceImagesWeb\fake\28826.png" />
+    <Content Include="Content\QuestionPhotos\FaceImagesWeb\fake\28827.png" />
+    <Content Include="Content\QuestionPhotos\FaceImagesWeb\fake\28894.png" />
+    <Content Include="Content\QuestionPhotos\FaceImagesWeb\fake\28901.png" />
+    <Content Include="Content\QuestionPhotos\FaceImagesWeb\fake\28920.png" />
+    <Content Include="Content\QuestionPhotos\FaceImagesWeb\fake\28924.png" />
+    <Content Include="Content\QuestionPhotos\FaceImagesWeb\fake\28983.png" />
+    <Content Include="Content\QuestionPhotos\FaceImagesWeb\fake\28985.png" />
+    <Content Include="Content\QuestionPhotos\FaceImagesWeb\fake\28986.png" />
+    <Content Include="Content\QuestionPhotos\FaceImagesWeb\fake\29000.png" />
+    <Content Include="Content\QuestionPhotos\FaceImagesWeb\fake\29043.png" />
+    <Content Include="Content\QuestionPhotos\FaceImagesWeb\fake\29044.png" />
+    <Content Include="Content\QuestionPhotos\FaceImagesWeb\fake\29058.png" />
+    <Content Include="Content\QuestionPhotos\FaceImagesWeb\fake\29094.png" />
+    <Content Include="Content\QuestionPhotos\FaceImagesWeb\fake\29107.png" />
+    <Content Include="Content\QuestionPhotos\FaceImagesWeb\fake\29193.png" />
+    <Content Include="Content\QuestionPhotos\FaceImagesWeb\fake\29235.png" />
+    <Content Include="Content\QuestionPhotos\FaceImagesWeb\fake\29302.png" />
+    <Content Include="Content\QuestionPhotos\FaceImagesWeb\fake\29305.png" />
+    <Content Include="Content\QuestionPhotos\FaceImagesWeb\fake\29339.png" />
+    <Content Include="Content\QuestionPhotos\FaceImagesWeb\fake\29378.png" />
+    <Content Include="Content\QuestionPhotos\FaceImagesWeb\fake\29418.png" />
+    <Content Include="Content\QuestionPhotos\FaceImagesWeb\fake\29435.png" />
+    <Content Include="Content\QuestionPhotos\FaceImagesWeb\fake\29474.png" />
+    <Content Include="Content\QuestionPhotos\FaceImagesWeb\fake\29518.png" />
+    <Content Include="Content\QuestionPhotos\FaceImagesWeb\fake\29612.png" />
+    <Content Include="Content\QuestionPhotos\FaceImagesWeb\fake\29653.png" />
+    <Content Include="Content\QuestionPhotos\FaceImagesWeb\fake\29659.png" />
+    <Content Include="Content\QuestionPhotos\FaceImagesWeb\fake\29731.png" />
+    <Content Include="Content\QuestionPhotos\FaceImagesWeb\fake\29734.png" />
+    <Content Include="Content\QuestionPhotos\FaceImagesWeb\fake\29768.png" />
+    <Content Include="Content\QuestionPhotos\FaceImagesWeb\fake\29816.png" />
+    <Content Include="Content\QuestionPhotos\FaceImagesWeb\fake\29856.png" />
+    <Content Include="Content\QuestionPhotos\FaceImagesWeb\fake\29865.png" />
+    <Content Include="Content\QuestionPhotos\FaceImagesWeb\fake\29953.png" />
+    <Content Include="Content\QuestionPhotos\FaceImagesWeb\fake\29958.png" />
+    <Content Include="Content\QuestionPhotos\FaceImagesWeb\fake\29985.png" />
+    <Content Include="Content\QuestionPhotos\FaceImagesWeb\fake\29989.png" />
+    <Content Include="Content\QuestionPhotos\FaceImagesWeb\real\28001.png" />
+    <Content Include="Content\QuestionPhotos\FaceImagesWeb\real\28008.png" />
+    <Content Include="Content\QuestionPhotos\FaceImagesWeb\real\28042.png" />
+    <Content Include="Content\QuestionPhotos\FaceImagesWeb\real\28043.png" />
+    <Content Include="Content\QuestionPhotos\FaceImagesWeb\real\28044.png" />
+    <Content Include="Content\QuestionPhotos\FaceImagesWeb\real\28045.png" />
+    <Content Include="Content\QuestionPhotos\FaceImagesWeb\real\28046.png" />
+    <Content Include="Content\QuestionPhotos\FaceImagesWeb\real\28047.png" />
+    <Content Include="Content\QuestionPhotos\FaceImagesWeb\real\28048.png" />
+    <Content Include="Content\QuestionPhotos\FaceImagesWeb\real\28091.png" />
+    <Content Include="Content\QuestionPhotos\FaceImagesWeb\real\28092.png" />
+    <Content Include="Content\QuestionPhotos\FaceImagesWeb\real\28094.png" />
+    <Content Include="Content\QuestionPhotos\FaceImagesWeb\real\28095.png" />
+    <Content Include="Content\QuestionPhotos\FaceImagesWeb\real\28096.png" />
+    <Content Include="Content\QuestionPhotos\FaceImagesWeb\real\28138.png" />
+    <Content Include="Content\QuestionPhotos\FaceImagesWeb\real\28139.png" />
+    <Content Include="Content\QuestionPhotos\FaceImagesWeb\real\28140.png" />
+    <Content Include="Content\QuestionPhotos\FaceImagesWeb\real\28141.png" />
+    <Content Include="Content\QuestionPhotos\FaceImagesWeb\real\28142.png" />
+    <Content Include="Content\QuestionPhotos\FaceImagesWeb\real\28143.png" />
+    <Content Include="Content\QuestionPhotos\FaceImagesWeb\real\28144.png" />
+    <Content Include="Content\QuestionPhotos\FaceImagesWeb\real\28189.png" />
+    <Content Include="Content\QuestionPhotos\FaceImagesWeb\real\28190.png" />
+    <Content Include="Content\QuestionPhotos\FaceImagesWeb\real\28191.png" />
+    <Content Include="Content\QuestionPhotos\FaceImagesWeb\real\28192.png" />
+    <Content Include="Content\QuestionPhotos\FaceImagesWeb\real\28234.png" />
+    <Content Include="Content\QuestionPhotos\FaceImagesWeb\real\28235.png" />
+    <Content Include="Content\QuestionPhotos\FaceImagesWeb\real\28236.png" />
+    <Content Include="Content\QuestionPhotos\FaceImagesWeb\real\28237.png" />
+    <Content Include="Content\QuestionPhotos\FaceImagesWeb\real\28238.png" />
+    <Content Include="Content\QuestionPhotos\FaceImagesWeb\real\28239.png" />
+    <Content Include="Content\QuestionPhotos\FaceImagesWeb\real\28240.png" />
+    <Content Include="Content\QuestionPhotos\FaceImagesWeb\real\28301.png" />
+    <Content Include="Content\QuestionPhotos\FaceImagesWeb\real\28302.png" />
+    <Content Include="Content\QuestionPhotos\FaceImagesWeb\real\28303.png" />
+    <Content Include="Content\QuestionPhotos\FaceImagesWeb\real\28304.png" />
+    <Content Include="Content\QuestionPhotos\FaceImagesWeb\real\28305.png" />
+    <Content Include="Content\QuestionPhotos\FaceImagesWeb\real\28306.png" />
+    <Content Include="Content\QuestionPhotos\FaceImagesWeb\real\28307.png" />
+    <Content Include="Content\QuestionPhotos\FaceImagesWeb\real\28376.png" />
+    <Content Include="Content\QuestionPhotos\FaceImagesWeb\real\28377.png" />
+    <Content Include="Content\QuestionPhotos\FaceImagesWeb\real\28378.png" />
+    <Content Include="Content\QuestionPhotos\FaceImagesWeb\real\28379.png" />
+    <Content Include="Content\QuestionPhotos\FaceImagesWeb\real\28380.png" />
+    <Content Include="Content\QuestionPhotos\FaceImagesWeb\real\28381.png" />
+    <Content Include="Content\QuestionPhotos\FaceImagesWeb\real\28382.png" />
+    <Content Include="Content\QuestionPhotos\FaceImagesWeb\real\28385.png" />
+    <Content Include="Content\QuestionPhotos\FaceImagesWeb\real\28386.png" />
+    <Content Include="Content\QuestionPhotos\FaceImagesWeb\real\28387.png" />
+    <Content Include="Content\QuestionPhotos\FaceImagesWeb\real\28388.png" />
+    <Content Include="Content\QuestionPhotos\FaceImagesWeb\real\28397.png" />
+    <Content Include="Content\QuestionPhotos\FaceImagesWeb\real\28398.png" />
+    <Content Include="Content\QuestionPhotos\FaceImagesWeb\real\28399.png" />
+    <Content Include="Content\QuestionPhotos\FaceImagesWeb\real\28400.png" />
+    <Content Include="Content\QuestionPhotos\FaceImagesWeb\real\28483.png" />
+    <Content Include="Content\QuestionPhotos\FaceImagesWeb\real\28484.png" />
+    <Content Include="Content\QuestionPhotos\FaceImagesWeb\real\28485.png" />
+    <Content Include="Content\QuestionPhotos\FaceImagesWeb\real\28486.png" />
+    <Content Include="Content\QuestionPhotos\FaceImagesWeb\real\28487.png" />
+    <Content Include="Content\QuestionPhotos\FaceImagesWeb\real\28488.png" />
+    <Content Include="Content\QuestionPhotos\FaceImagesWeb\real\28489.png" />
+    <Content Include="Content\QuestionPhotos\FaceImagesWeb\real\29142.png" />
+    <Content Include="Content\QuestionPhotos\FaceImagesWeb\real\29143.png" />
+    <Content Include="Content\QuestionPhotos\FaceImagesWeb\real\29144.png" />
+    <Content Include="Content\QuestionPhotos\FaceImagesWeb\real\29145.png" />
+    <Content Include="Content\QuestionPhotos\FaceImagesWeb\real\29146.png" />
+    <Content Include="Content\QuestionPhotos\FaceImagesWeb\real\29183.png" />
+    <Content Include="Content\QuestionPhotos\FaceImagesWeb\real\29184.png" />
+    <Content Include="Content\QuestionPhotos\FaceImagesWeb\real\29185.png" />
+    <Content Include="Content\QuestionPhotos\FaceImagesWeb\real\29232.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Bilateral\fake\GradCAM_bilafilt28010.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Bilateral\fake\GradCAM_bilafilt28048.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Bilateral\fake\GradCAM_bilafilt28071.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Bilateral\fake\GradCAM_bilafilt28133.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Bilateral\fake\GradCAM_bilafilt28164.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Bilateral\fake\GradCAM_bilafilt28188.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Bilateral\fake\GradCAM_bilafilt28191.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Bilateral\fake\GradCAM_bilafilt28201.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Bilateral\fake\GradCAM_bilafilt28204.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Bilateral\fake\GradCAM_bilafilt28205.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Bilateral\fake\GradCAM_bilafilt28220.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Bilateral\fake\GradCAM_bilafilt28231.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Bilateral\fake\GradCAM_bilafilt28258.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Bilateral\fake\GradCAM_bilafilt28262.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Bilateral\fake\GradCAM_bilafilt28352.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Bilateral\fake\GradCAM_bilafilt28489.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Bilateral\fake\GradCAM_bilafilt28496.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Bilateral\fake\GradCAM_bilafilt28499.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Bilateral\fake\GradCAM_bilafilt28504.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Bilateral\fake\GradCAM_bilafilt28512.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Bilateral\fake\GradCAM_bilafilt28577.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Bilateral\fake\GradCAM_bilafilt28650.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Bilateral\fake\GradCAM_bilafilt28656.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Bilateral\fake\GradCAM_bilafilt28667.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Bilateral\fake\GradCAM_bilafilt28670.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Bilateral\fake\GradCAM_bilafilt28676.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Bilateral\fake\GradCAM_bilafilt28680.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Bilateral\fake\GradCAM_bilafilt28722.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Bilateral\fake\GradCAM_bilafilt28725.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Bilateral\fake\GradCAM_bilafilt28780.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Bilateral\fake\GradCAM_bilafilt28821.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Bilateral\fake\GradCAM_bilafilt28825.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Bilateral\fake\GradCAM_bilafilt28826.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Bilateral\fake\GradCAM_bilafilt28827.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Bilateral\fake\GradCAM_bilafilt28894.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Bilateral\fake\GradCAM_bilafilt28901.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Bilateral\fake\GradCAM_bilafilt28920.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Bilateral\fake\GradCAM_bilafilt28924.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Bilateral\fake\GradCAM_bilafilt28983.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Bilateral\fake\GradCAM_bilafilt28985.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Bilateral\fake\GradCAM_bilafilt28986.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Bilateral\fake\GradCAM_bilafilt29000.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Bilateral\fake\GradCAM_bilafilt29043.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Bilateral\fake\GradCAM_bilafilt29044.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Bilateral\fake\GradCAM_bilafilt29058.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Bilateral\fake\GradCAM_bilafilt29094.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Bilateral\fake\GradCAM_bilafilt29107.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Bilateral\fake\GradCAM_bilafilt29193.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Bilateral\fake\GradCAM_bilafilt29235.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Bilateral\fake\GradCAM_bilafilt29302.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Bilateral\fake\GradCAM_bilafilt29305.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Bilateral\fake\GradCAM_bilafilt29339.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Bilateral\fake\GradCAM_bilafilt29378.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Bilateral\fake\GradCAM_bilafilt29418.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Bilateral\fake\GradCAM_bilafilt29435.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Bilateral\fake\GradCAM_bilafilt29474.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Bilateral\fake\GradCAM_bilafilt29518.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Bilateral\fake\GradCAM_bilafilt29612.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Bilateral\fake\GradCAM_bilafilt29653.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Bilateral\fake\GradCAM_bilafilt29659.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Bilateral\fake\GradCAM_bilafilt29731.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Bilateral\fake\GradCAM_bilafilt29734.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Bilateral\fake\GradCAM_bilafilt29768.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Bilateral\fake\GradCAM_bilafilt29816.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Bilateral\fake\GradCAM_bilafilt29856.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Bilateral\fake\GradCAM_bilafilt29865.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Bilateral\fake\GradCAM_bilafilt29953.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Bilateral\fake\GradCAM_bilafilt29958.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Bilateral\fake\GradCAM_bilafilt29985.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Bilateral\fake\GradCAM_bilafilt29989.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Bilateral\real\GradCAM_bilafilt28001.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Bilateral\real\GradCAM_bilafilt28008.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Bilateral\real\GradCAM_bilafilt28042.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Bilateral\real\GradCAM_bilafilt28043.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Bilateral\real\GradCAM_bilafilt28044.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Bilateral\real\GradCAM_bilafilt28045.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Bilateral\real\GradCAM_bilafilt28046.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Bilateral\real\GradCAM_bilafilt28047.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Bilateral\real\GradCAM_bilafilt28048.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Bilateral\real\GradCAM_bilafilt28091.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Bilateral\real\GradCAM_bilafilt28092.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Bilateral\real\GradCAM_bilafilt28094.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Bilateral\real\GradCAM_bilafilt28095.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Bilateral\real\GradCAM_bilafilt28096.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Bilateral\real\GradCAM_bilafilt28138.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Bilateral\real\GradCAM_bilafilt28139.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Bilateral\real\GradCAM_bilafilt28140.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Bilateral\real\GradCAM_bilafilt28141.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Bilateral\real\GradCAM_bilafilt28142.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Bilateral\real\GradCAM_bilafilt28143.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Bilateral\real\GradCAM_bilafilt28144.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Bilateral\real\GradCAM_bilafilt28189.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Bilateral\real\GradCAM_bilafilt28190.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Bilateral\real\GradCAM_bilafilt28191.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Bilateral\real\GradCAM_bilafilt28192.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Bilateral\real\GradCAM_bilafilt28234.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Bilateral\real\GradCAM_bilafilt28235.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Bilateral\real\GradCAM_bilafilt28236.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Bilateral\real\GradCAM_bilafilt28237.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Bilateral\real\GradCAM_bilafilt28238.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Bilateral\real\GradCAM_bilafilt28239.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Bilateral\real\GradCAM_bilafilt28240.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Bilateral\real\GradCAM_bilafilt28301.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Bilateral\real\GradCAM_bilafilt28302.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Bilateral\real\GradCAM_bilafilt28303.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Bilateral\real\GradCAM_bilafilt28304.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Bilateral\real\GradCAM_bilafilt28305.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Bilateral\real\GradCAM_bilafilt28306.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Bilateral\real\GradCAM_bilafilt28307.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Bilateral\real\GradCAM_bilafilt28376.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Bilateral\real\GradCAM_bilafilt28377.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Bilateral\real\GradCAM_bilafilt28378.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Bilateral\real\GradCAM_bilafilt28379.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Bilateral\real\GradCAM_bilafilt28380.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Bilateral\real\GradCAM_bilafilt28381.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Bilateral\real\GradCAM_bilafilt28382.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Bilateral\real\GradCAM_bilafilt28385.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Bilateral\real\GradCAM_bilafilt28386.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Bilateral\real\GradCAM_bilafilt28387.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Bilateral\real\GradCAM_bilafilt28388.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Bilateral\real\GradCAM_bilafilt28397.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Bilateral\real\GradCAM_bilafilt28398.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Bilateral\real\GradCAM_bilafilt28399.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Bilateral\real\GradCAM_bilafilt28400.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Bilateral\real\GradCAM_bilafilt28483.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Bilateral\real\GradCAM_bilafilt28484.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Bilateral\real\GradCAM_bilafilt28485.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Bilateral\real\GradCAM_bilafilt28486.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Bilateral\real\GradCAM_bilafilt28487.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Bilateral\real\GradCAM_bilafilt28488.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Bilateral\real\GradCAM_bilafilt28489.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Bilateral\real\GradCAM_bilafilt29142.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Bilateral\real\GradCAM_bilafilt29143.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Bilateral\real\GradCAM_bilafilt29144.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Bilateral\real\GradCAM_bilafilt29145.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Bilateral\real\GradCAM_bilafilt29146.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Bilateral\real\GradCAM_bilafilt29183.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Bilateral\real\GradCAM_bilafilt29184.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Bilateral\real\GradCAM_bilafilt29185.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Bilateral\real\GradCAM_bilafilt29232.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Original\fake\GradCAM_28010.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Original\fake\GradCAM_28048.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Original\fake\GradCAM_28071.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Original\fake\GradCAM_28133.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Original\fake\GradCAM_28164.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Original\fake\GradCAM_28188.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Original\fake\GradCAM_28191.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Original\fake\GradCAM_28201.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Original\fake\GradCAM_28204.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Original\fake\GradCAM_28205.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Original\fake\GradCAM_28220.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Original\fake\GradCAM_28231.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Original\fake\GradCAM_28258.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Original\fake\GradCAM_28262.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Original\fake\GradCAM_28352.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Original\fake\GradCAM_28489.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Original\fake\GradCAM_28496.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Original\fake\GradCAM_28499.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Original\fake\GradCAM_28504.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Original\fake\GradCAM_28512.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Original\fake\GradCAM_28577.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Original\fake\GradCAM_28650.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Original\fake\GradCAM_28656.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Original\fake\GradCAM_28667.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Original\fake\GradCAM_28670.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Original\fake\GradCAM_28676.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Original\fake\GradCAM_28680.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Original\fake\GradCAM_28722.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Original\fake\GradCAM_28725.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Original\fake\GradCAM_28780.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Original\fake\GradCAM_28821.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Original\fake\GradCAM_28825.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Original\fake\GradCAM_28826.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Original\fake\GradCAM_28827.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Original\fake\GradCAM_28894.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Original\fake\GradCAM_28901.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Original\fake\GradCAM_28920.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Original\fake\GradCAM_28924.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Original\fake\GradCAM_28983.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Original\fake\GradCAM_28985.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Original\fake\GradCAM_28986.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Original\fake\GradCAM_29000.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Original\fake\GradCAM_29043.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Original\fake\GradCAM_29044.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Original\fake\GradCAM_29058.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Original\fake\GradCAM_29094.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Original\fake\GradCAM_29107.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Original\fake\GradCAM_29193.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Original\fake\GradCAM_29235.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Original\fake\GradCAM_29302.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Original\fake\GradCAM_29305.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Original\fake\GradCAM_29339.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Original\fake\GradCAM_29378.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Original\fake\GradCAM_29418.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Original\fake\GradCAM_29435.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Original\fake\GradCAM_29474.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Original\fake\GradCAM_29518.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Original\fake\GradCAM_29612.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Original\fake\GradCAM_29653.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Original\fake\GradCAM_29659.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Original\fake\GradCAM_29731.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Original\fake\GradCAM_29734.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Original\fake\GradCAM_29768.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Original\fake\GradCAM_29816.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Original\fake\GradCAM_29856.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Original\fake\GradCAM_29865.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Original\fake\GradCAM_29953.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Original\fake\GradCAM_29958.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Original\fake\GradCAM_29985.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Original\fake\GradCAM_29989.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Original\real\GradCAM_28001.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Original\real\GradCAM_28008.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Original\real\GradCAM_28042.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Original\real\GradCAM_28043.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Original\real\GradCAM_28044.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Original\real\GradCAM_28045.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Original\real\GradCAM_28046.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Original\real\GradCAM_28047.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Original\real\GradCAM_28048.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Original\real\GradCAM_28091.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Original\real\GradCAM_28092.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Original\real\GradCAM_28094.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Original\real\GradCAM_28095.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Original\real\GradCAM_28096.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Original\real\GradCAM_28138.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Original\real\GradCAM_28139.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Original\real\GradCAM_28140.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Original\real\GradCAM_28141.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Original\real\GradCAM_28142.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Original\real\GradCAM_28143.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Original\real\GradCAM_28144.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Original\real\GradCAM_28189.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Original\real\GradCAM_28190.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Original\real\GradCAM_28191.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Original\real\GradCAM_28192.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Original\real\GradCAM_28234.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Original\real\GradCAM_28235.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Original\real\GradCAM_28236.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Original\real\GradCAM_28237.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Original\real\GradCAM_28238.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Original\real\GradCAM_28239.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Original\real\GradCAM_28240.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Original\real\GradCAM_28301.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Original\real\GradCAM_28302.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Original\real\GradCAM_28303.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Original\real\GradCAM_28304.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Original\real\GradCAM_28305.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Original\real\GradCAM_28306.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Original\real\GradCAM_28307.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Original\real\GradCAM_28376.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Original\real\GradCAM_28377.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Original\real\GradCAM_28378.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Original\real\GradCAM_28379.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Original\real\GradCAM_28380.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Original\real\GradCAM_28381.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Original\real\GradCAM_28382.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Original\real\GradCAM_28385.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Original\real\GradCAM_28386.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Original\real\GradCAM_28387.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Original\real\GradCAM_28388.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Original\real\GradCAM_28397.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Original\real\GradCAM_28398.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Original\real\GradCAM_28399.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Original\real\GradCAM_28400.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Original\real\GradCAM_28483.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Original\real\GradCAM_28484.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Original\real\GradCAM_28485.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Original\real\GradCAM_28486.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Original\real\GradCAM_28487.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Original\real\GradCAM_28488.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Original\real\GradCAM_28489.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Original\real\GradCAM_29142.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Original\real\GradCAM_29143.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Original\real\GradCAM_29144.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Original\real\GradCAM_29145.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Original\real\GradCAM_29146.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Original\real\GradCAM_29183.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Original\real\GradCAM_29184.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Original\real\GradCAM_29185.png" />
+    <Content Include="Content\QuestionPhotos\GradCAM\Original\real\GradCAM_29232.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Bilateral\fake\LRP_bilafilt28010.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Bilateral\fake\LRP_bilafilt28048.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Bilateral\fake\LRP_bilafilt28071.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Bilateral\fake\LRP_bilafilt28133.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Bilateral\fake\LRP_bilafilt28164.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Bilateral\fake\LRP_bilafilt28188.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Bilateral\fake\LRP_bilafilt28191.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Bilateral\fake\LRP_bilafilt28201.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Bilateral\fake\LRP_bilafilt28204.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Bilateral\fake\LRP_bilafilt28205.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Bilateral\fake\LRP_bilafilt28220.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Bilateral\fake\LRP_bilafilt28231.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Bilateral\fake\LRP_bilafilt28258.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Bilateral\fake\LRP_bilafilt28262.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Bilateral\fake\LRP_bilafilt28352.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Bilateral\fake\LRP_bilafilt28489.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Bilateral\fake\LRP_bilafilt28496.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Bilateral\fake\LRP_bilafilt28499.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Bilateral\fake\LRP_bilafilt28504.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Bilateral\fake\LRP_bilafilt28512.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Bilateral\fake\LRP_bilafilt28577.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Bilateral\fake\LRP_bilafilt28650.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Bilateral\fake\LRP_bilafilt28656.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Bilateral\fake\LRP_bilafilt28667.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Bilateral\fake\LRP_bilafilt28670.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Bilateral\fake\LRP_bilafilt28676.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Bilateral\fake\LRP_bilafilt28680.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Bilateral\fake\LRP_bilafilt28722.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Bilateral\fake\LRP_bilafilt28725.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Bilateral\fake\LRP_bilafilt28780.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Bilateral\fake\LRP_bilafilt28821.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Bilateral\fake\LRP_bilafilt28825.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Bilateral\fake\LRP_bilafilt28826.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Bilateral\fake\LRP_bilafilt28827.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Bilateral\fake\LRP_bilafilt28894.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Bilateral\fake\LRP_bilafilt28901.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Bilateral\fake\LRP_bilafilt28920.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Bilateral\fake\LRP_bilafilt28924.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Bilateral\fake\LRP_bilafilt28983.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Bilateral\fake\LRP_bilafilt28985.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Bilateral\fake\LRP_bilafilt28986.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Bilateral\fake\LRP_bilafilt29000.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Bilateral\fake\LRP_bilafilt29043.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Bilateral\fake\LRP_bilafilt29044.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Bilateral\fake\LRP_bilafilt29058.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Bilateral\fake\LRP_bilafilt29094.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Bilateral\fake\LRP_bilafilt29107.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Bilateral\fake\LRP_bilafilt29193.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Bilateral\fake\LRP_bilafilt29235.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Bilateral\fake\LRP_bilafilt29302.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Bilateral\fake\LRP_bilafilt29305.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Bilateral\fake\LRP_bilafilt29339.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Bilateral\fake\LRP_bilafilt29378.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Bilateral\fake\LRP_bilafilt29418.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Bilateral\fake\LRP_bilafilt29435.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Bilateral\fake\LRP_bilafilt29474.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Bilateral\fake\LRP_bilafilt29518.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Bilateral\fake\LRP_bilafilt29612.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Bilateral\fake\LRP_bilafilt29653.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Bilateral\fake\LRP_bilafilt29659.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Bilateral\fake\LRP_bilafilt29731.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Bilateral\fake\LRP_bilafilt29734.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Bilateral\fake\LRP_bilafilt29768.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Bilateral\fake\LRP_bilafilt29816.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Bilateral\fake\LRP_bilafilt29856.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Bilateral\fake\LRP_bilafilt29865.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Bilateral\fake\LRP_bilafilt29953.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Bilateral\fake\LRP_bilafilt29958.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Bilateral\fake\LRP_bilafilt29985.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Bilateral\fake\LRP_bilafilt29989.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Bilateral\real\LRP_bilafilt28001.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Bilateral\real\LRP_bilafilt28008.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Bilateral\real\LRP_bilafilt28042.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Bilateral\real\LRP_bilafilt28043.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Bilateral\real\LRP_bilafilt28044.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Bilateral\real\LRP_bilafilt28045.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Bilateral\real\LRP_bilafilt28046.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Bilateral\real\LRP_bilafilt28047.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Bilateral\real\LRP_bilafilt28048.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Bilateral\real\LRP_bilafilt28091.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Bilateral\real\LRP_bilafilt28092.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Bilateral\real\LRP_bilafilt28094.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Bilateral\real\LRP_bilafilt28095.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Bilateral\real\LRP_bilafilt28096.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Bilateral\real\LRP_bilafilt28138.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Bilateral\real\LRP_bilafilt28139.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Bilateral\real\LRP_bilafilt28140.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Bilateral\real\LRP_bilafilt28141.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Bilateral\real\LRP_bilafilt28142.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Bilateral\real\LRP_bilafilt28143.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Bilateral\real\LRP_bilafilt28144.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Bilateral\real\LRP_bilafilt28189.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Bilateral\real\LRP_bilafilt28190.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Bilateral\real\LRP_bilafilt28191.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Bilateral\real\LRP_bilafilt28192.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Bilateral\real\LRP_bilafilt28234.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Bilateral\real\LRP_bilafilt28235.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Bilateral\real\LRP_bilafilt28236.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Bilateral\real\LRP_bilafilt28237.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Bilateral\real\LRP_bilafilt28238.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Bilateral\real\LRP_bilafilt28239.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Bilateral\real\LRP_bilafilt28240.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Bilateral\real\LRP_bilafilt28301.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Bilateral\real\LRP_bilafilt28302.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Bilateral\real\LRP_bilafilt28303.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Bilateral\real\LRP_bilafilt28304.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Bilateral\real\LRP_bilafilt28305.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Bilateral\real\LRP_bilafilt28306.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Bilateral\real\LRP_bilafilt28307.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Bilateral\real\LRP_bilafilt28376.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Bilateral\real\LRP_bilafilt28377.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Bilateral\real\LRP_bilafilt28378.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Bilateral\real\LRP_bilafilt28379.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Bilateral\real\LRP_bilafilt28380.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Bilateral\real\LRP_bilafilt28381.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Bilateral\real\LRP_bilafilt28382.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Bilateral\real\LRP_bilafilt28385.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Bilateral\real\LRP_bilafilt28386.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Bilateral\real\LRP_bilafilt28387.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Bilateral\real\LRP_bilafilt28388.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Bilateral\real\LRP_bilafilt28397.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Bilateral\real\LRP_bilafilt28398.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Bilateral\real\LRP_bilafilt28399.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Bilateral\real\LRP_bilafilt28400.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Bilateral\real\LRP_bilafilt28483.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Bilateral\real\LRP_bilafilt28484.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Bilateral\real\LRP_bilafilt28485.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Bilateral\real\LRP_bilafilt28486.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Bilateral\real\LRP_bilafilt28487.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Bilateral\real\LRP_bilafilt28488.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Bilateral\real\LRP_bilafilt28489.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Bilateral\real\LRP_bilafilt29142.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Bilateral\real\LRP_bilafilt29143.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Bilateral\real\LRP_bilafilt29144.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Bilateral\real\LRP_bilafilt29145.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Bilateral\real\LRP_bilafilt29146.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Bilateral\real\LRP_bilafilt29183.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Bilateral\real\LRP_bilafilt29184.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Bilateral\real\LRP_bilafilt29185.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Bilateral\real\LRP_bilafilt29232.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Original\fake\LRP_28010.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Original\fake\LRP_28048.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Original\fake\LRP_28071.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Original\fake\LRP_28133.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Original\fake\LRP_28164.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Original\fake\LRP_28188.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Original\fake\LRP_28191.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Original\fake\LRP_28201.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Original\fake\LRP_28204.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Original\fake\LRP_28205.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Original\fake\LRP_28220.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Original\fake\LRP_28231.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Original\fake\LRP_28258.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Original\fake\LRP_28262.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Original\fake\LRP_28352.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Original\fake\LRP_28489.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Original\fake\LRP_28496.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Original\fake\LRP_28499.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Original\fake\LRP_28504.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Original\fake\LRP_28512.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Original\fake\LRP_28577.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Original\fake\LRP_28650.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Original\fake\LRP_28656.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Original\fake\LRP_28667.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Original\fake\LRP_28670.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Original\fake\LRP_28676.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Original\fake\LRP_28680.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Original\fake\LRP_28722.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Original\fake\LRP_28725.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Original\fake\LRP_28780.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Original\fake\LRP_28821.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Original\fake\LRP_28825.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Original\fake\LRP_28826.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Original\fake\LRP_28827.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Original\fake\LRP_28894.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Original\fake\LRP_28901.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Original\fake\LRP_28920.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Original\fake\LRP_28924.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Original\fake\LRP_28983.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Original\fake\LRP_28985.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Original\fake\LRP_28986.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Original\fake\LRP_29000.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Original\fake\LRP_29043.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Original\fake\LRP_29044.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Original\fake\LRP_29058.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Original\fake\LRP_29094.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Original\fake\LRP_29107.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Original\fake\LRP_29193.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Original\fake\LRP_29235.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Original\fake\LRP_29302.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Original\fake\LRP_29305.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Original\fake\LRP_29339.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Original\fake\LRP_29378.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Original\fake\LRP_29418.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Original\fake\LRP_29435.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Original\fake\LRP_29474.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Original\fake\LRP_29518.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Original\fake\LRP_29612.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Original\fake\LRP_29653.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Original\fake\LRP_29659.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Original\fake\LRP_29731.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Original\fake\LRP_29734.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Original\fake\LRP_29768.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Original\fake\LRP_29816.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Original\fake\LRP_29856.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Original\fake\LRP_29865.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Original\fake\LRP_29953.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Original\fake\LRP_29958.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Original\fake\LRP_29985.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Original\fake\LRP_29989.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Original\real\LRP_28001.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Original\real\LRP_28008.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Original\real\LRP_28042.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Original\real\LRP_28043.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Original\real\LRP_28044.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Original\real\LRP_28045.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Original\real\LRP_28046.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Original\real\LRP_28047.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Original\real\LRP_28048.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Original\real\LRP_28091.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Original\real\LRP_28092.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Original\real\LRP_28094.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Original\real\LRP_28095.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Original\real\LRP_28096.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Original\real\LRP_28138.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Original\real\LRP_28139.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Original\real\LRP_28140.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Original\real\LRP_28141.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Original\real\LRP_28142.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Original\real\LRP_28143.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Original\real\LRP_28144.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Original\real\LRP_28189.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Original\real\LRP_28190.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Original\real\LRP_28191.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Original\real\LRP_28192.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Original\real\LRP_28234.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Original\real\LRP_28235.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Original\real\LRP_28236.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Original\real\LRP_28237.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Original\real\LRP_28238.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Original\real\LRP_28239.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Original\real\LRP_28240.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Original\real\LRP_28301.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Original\real\LRP_28302.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Original\real\LRP_28303.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Original\real\LRP_28304.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Original\real\LRP_28305.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Original\real\LRP_28306.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Original\real\LRP_28307.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Original\real\LRP_28376.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Original\real\LRP_28377.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Original\real\LRP_28378.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Original\real\LRP_28379.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Original\real\LRP_28380.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Original\real\LRP_28381.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Original\real\LRP_28382.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Original\real\LRP_28385.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Original\real\LRP_28386.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Original\real\LRP_28387.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Original\real\LRP_28388.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Original\real\LRP_28397.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Original\real\LRP_28398.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Original\real\LRP_28399.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Original\real\LRP_28400.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Original\real\LRP_28483.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Original\real\LRP_28484.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Original\real\LRP_28485.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Original\real\LRP_28486.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Original\real\LRP_28487.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Original\real\LRP_28488.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Original\real\LRP_28489.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Original\real\LRP_29142.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Original\real\LRP_29143.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Original\real\LRP_29144.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Original\real\LRP_29145.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Original\real\LRP_29146.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Original\real\LRP_29183.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Original\real\LRP_29184.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Original\real\LRP_29185.png" />
+    <Content Include="Content\QuestionPhotos\LRP\Original\real\LRP_29232.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Bilateral\fake\attention_bilafilt28010.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Bilateral\fake\attention_bilafilt28048.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Bilateral\fake\attention_bilafilt28071.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Bilateral\fake\attention_bilafilt28133.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Bilateral\fake\attention_bilafilt28164.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Bilateral\fake\attention_bilafilt28188.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Bilateral\fake\attention_bilafilt28191.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Bilateral\fake\attention_bilafilt28201.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Bilateral\fake\attention_bilafilt28204.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Bilateral\fake\attention_bilafilt28205.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Bilateral\fake\attention_bilafilt28220.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Bilateral\fake\attention_bilafilt28231.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Bilateral\fake\attention_bilafilt28258.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Bilateral\fake\attention_bilafilt28262.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Bilateral\fake\attention_bilafilt28352.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Bilateral\fake\attention_bilafilt28489.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Bilateral\fake\attention_bilafilt28496.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Bilateral\fake\attention_bilafilt28499.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Bilateral\fake\attention_bilafilt28504.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Bilateral\fake\attention_bilafilt28512.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Bilateral\fake\attention_bilafilt28577.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Bilateral\fake\attention_bilafilt28650.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Bilateral\fake\attention_bilafilt28656.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Bilateral\fake\attention_bilafilt28667.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Bilateral\fake\attention_bilafilt28670.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Bilateral\fake\attention_bilafilt28676.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Bilateral\fake\attention_bilafilt28680.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Bilateral\fake\attention_bilafilt28722.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Bilateral\fake\attention_bilafilt28725.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Bilateral\fake\attention_bilafilt28780.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Bilateral\fake\attention_bilafilt28821.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Bilateral\fake\attention_bilafilt28825.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Bilateral\fake\attention_bilafilt28826.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Bilateral\fake\attention_bilafilt28827.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Bilateral\fake\attention_bilafilt28894.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Bilateral\fake\attention_bilafilt28901.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Bilateral\fake\attention_bilafilt28920.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Bilateral\fake\attention_bilafilt28924.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Bilateral\fake\attention_bilafilt28983.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Bilateral\fake\attention_bilafilt28985.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Bilateral\fake\attention_bilafilt28986.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Bilateral\fake\attention_bilafilt29000.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Bilateral\fake\attention_bilafilt29043.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Bilateral\fake\attention_bilafilt29044.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Bilateral\fake\attention_bilafilt29058.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Bilateral\fake\attention_bilafilt29094.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Bilateral\fake\attention_bilafilt29107.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Bilateral\fake\attention_bilafilt29193.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Bilateral\fake\attention_bilafilt29235.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Bilateral\fake\attention_bilafilt29302.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Bilateral\fake\attention_bilafilt29305.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Bilateral\fake\attention_bilafilt29339.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Bilateral\fake\attention_bilafilt29378.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Bilateral\fake\attention_bilafilt29418.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Bilateral\fake\attention_bilafilt29435.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Bilateral\fake\attention_bilafilt29474.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Bilateral\fake\attention_bilafilt29518.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Bilateral\fake\attention_bilafilt29612.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Bilateral\fake\attention_bilafilt29653.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Bilateral\fake\attention_bilafilt29659.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Bilateral\fake\attention_bilafilt29731.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Bilateral\fake\attention_bilafilt29734.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Bilateral\fake\attention_bilafilt29768.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Bilateral\fake\attention_bilafilt29816.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Bilateral\fake\attention_bilafilt29856.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Bilateral\fake\attention_bilafilt29865.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Bilateral\fake\attention_bilafilt29953.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Bilateral\fake\attention_bilafilt29958.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Bilateral\fake\attention_bilafilt29985.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Bilateral\fake\attention_bilafilt29989.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Bilateral\real\attention_bilafilt28001.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Bilateral\real\attention_bilafilt28008.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Bilateral\real\attention_bilafilt28042.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Bilateral\real\attention_bilafilt28043.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Bilateral\real\attention_bilafilt28044.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Bilateral\real\attention_bilafilt28045.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Bilateral\real\attention_bilafilt28046.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Bilateral\real\attention_bilafilt28047.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Bilateral\real\attention_bilafilt28048.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Bilateral\real\attention_bilafilt28091.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Bilateral\real\attention_bilafilt28092.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Bilateral\real\attention_bilafilt28094.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Bilateral\real\attention_bilafilt28095.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Bilateral\real\attention_bilafilt28096.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Bilateral\real\attention_bilafilt28138.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Bilateral\real\attention_bilafilt28139.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Bilateral\real\attention_bilafilt28140.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Bilateral\real\attention_bilafilt28141.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Bilateral\real\attention_bilafilt28142.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Bilateral\real\attention_bilafilt28143.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Bilateral\real\attention_bilafilt28144.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Bilateral\real\attention_bilafilt28189.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Bilateral\real\attention_bilafilt28190.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Bilateral\real\attention_bilafilt28191.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Bilateral\real\attention_bilafilt28192.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Bilateral\real\attention_bilafilt28234.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Bilateral\real\attention_bilafilt28235.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Bilateral\real\attention_bilafilt28236.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Bilateral\real\attention_bilafilt28237.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Bilateral\real\attention_bilafilt28238.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Bilateral\real\attention_bilafilt28239.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Bilateral\real\attention_bilafilt28240.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Bilateral\real\attention_bilafilt28301.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Bilateral\real\attention_bilafilt28302.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Bilateral\real\attention_bilafilt28303.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Bilateral\real\attention_bilafilt28304.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Bilateral\real\attention_bilafilt28305.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Bilateral\real\attention_bilafilt28306.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Bilateral\real\attention_bilafilt28307.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Bilateral\real\attention_bilafilt28376.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Bilateral\real\attention_bilafilt28377.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Bilateral\real\attention_bilafilt28378.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Bilateral\real\attention_bilafilt28379.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Bilateral\real\attention_bilafilt28380.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Bilateral\real\attention_bilafilt28381.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Bilateral\real\attention_bilafilt28382.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Bilateral\real\attention_bilafilt28385.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Bilateral\real\attention_bilafilt28386.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Bilateral\real\attention_bilafilt28387.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Bilateral\real\attention_bilafilt28388.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Bilateral\real\attention_bilafilt28397.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Bilateral\real\attention_bilafilt28398.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Bilateral\real\attention_bilafilt28399.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Bilateral\real\attention_bilafilt28400.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Bilateral\real\attention_bilafilt28483.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Bilateral\real\attention_bilafilt28484.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Bilateral\real\attention_bilafilt28485.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Bilateral\real\attention_bilafilt28486.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Bilateral\real\attention_bilafilt28487.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Bilateral\real\attention_bilafilt28488.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Bilateral\real\attention_bilafilt28489.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Bilateral\real\attention_bilafilt29142.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Bilateral\real\attention_bilafilt29143.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Bilateral\real\attention_bilafilt29144.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Bilateral\real\attention_bilafilt29145.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Bilateral\real\attention_bilafilt29146.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Bilateral\real\attention_bilafilt29183.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Bilateral\real\attention_bilafilt29184.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Bilateral\real\attention_bilafilt29185.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Bilateral\real\attention_bilafilt29232.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Original\fake\attention_28010.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Original\fake\attention_28048.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Original\fake\attention_28071.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Original\fake\attention_28133.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Original\fake\attention_28164.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Original\fake\attention_28188.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Original\fake\attention_28191.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Original\fake\attention_28201.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Original\fake\attention_28204.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Original\fake\attention_28205.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Original\fake\attention_28220.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Original\fake\attention_28231.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Original\fake\attention_28258.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Original\fake\attention_28262.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Original\fake\attention_28352.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Original\fake\attention_28489.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Original\fake\attention_28496.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Original\fake\attention_28499.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Original\fake\attention_28504.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Original\fake\attention_28512.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Original\fake\attention_28577.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Original\fake\attention_28650.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Original\fake\attention_28656.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Original\fake\attention_28667.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Original\fake\attention_28670.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Original\fake\attention_28676.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Original\fake\attention_28680.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Original\fake\attention_28722.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Original\fake\attention_28725.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Original\fake\attention_28780.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Original\fake\attention_28821.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Original\fake\attention_28825.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Original\fake\attention_28826.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Original\fake\attention_28827.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Original\fake\attention_28894.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Original\fake\attention_28901.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Original\fake\attention_28920.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Original\fake\attention_28924.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Original\fake\attention_28983.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Original\fake\attention_28985.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Original\fake\attention_28986.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Original\fake\attention_29000.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Original\fake\attention_29043.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Original\fake\attention_29044.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Original\fake\attention_29058.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Original\fake\attention_29094.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Original\fake\attention_29107.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Original\fake\attention_29193.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Original\fake\attention_29235.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Original\fake\attention_29302.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Original\fake\attention_29305.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Original\fake\attention_29339.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Original\fake\attention_29378.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Original\fake\attention_29418.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Original\fake\attention_29435.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Original\fake\attention_29474.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Original\fake\attention_29518.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Original\fake\attention_29612.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Original\fake\attention_29653.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Original\fake\attention_29659.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Original\fake\attention_29731.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Original\fake\attention_29734.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Original\fake\attention_29768.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Original\fake\attention_29816.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Original\fake\attention_29856.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Original\fake\attention_29865.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Original\fake\attention_29953.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Original\fake\attention_29958.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Original\fake\attention_29985.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Original\fake\attention_29989.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Original\real\attention_28001.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Original\real\attention_28008.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Original\real\attention_28042.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Original\real\attention_28043.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Original\real\attention_28044.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Original\real\attention_28045.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Original\real\attention_28046.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Original\real\attention_28047.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Original\real\attention_28048.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Original\real\attention_28091.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Original\real\attention_28092.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Original\real\attention_28094.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Original\real\attention_28095.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Original\real\attention_28096.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Original\real\attention_28138.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Original\real\attention_28139.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Original\real\attention_28140.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Original\real\attention_28141.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Original\real\attention_28142.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Original\real\attention_28143.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Original\real\attention_28144.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Original\real\attention_28189.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Original\real\attention_28190.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Original\real\attention_28191.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Original\real\attention_28192.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Original\real\attention_28234.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Original\real\attention_28235.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Original\real\attention_28236.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Original\real\attention_28237.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Original\real\attention_28238.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Original\real\attention_28239.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Original\real\attention_28240.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Original\real\attention_28301.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Original\real\attention_28302.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Original\real\attention_28303.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Original\real\attention_28304.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Original\real\attention_28305.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Original\real\attention_28306.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Original\real\attention_28307.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Original\real\attention_28376.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Original\real\attention_28377.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Original\real\attention_28378.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Original\real\attention_28379.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Original\real\attention_28380.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Original\real\attention_28381.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Original\real\attention_28382.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Original\real\attention_28385.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Original\real\attention_28386.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Original\real\attention_28387.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Original\real\attention_28388.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Original\real\attention_28397.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Original\real\attention_28398.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Original\real\attention_28399.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Original\real\attention_28400.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Original\real\attention_28483.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Original\real\attention_28484.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Original\real\attention_28485.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Original\real\attention_28486.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Original\real\attention_28487.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Original\real\attention_28488.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Original\real\attention_28489.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Original\real\attention_29142.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Original\real\attention_29143.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Original\real\attention_29144.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Original\real\attention_29145.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Original\real\attention_29146.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Original\real\attention_29183.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Original\real\attention_29184.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Original\real\attention_29185.png" />
+    <Content Include="Content\QuestionPhotos\SelfAttention\Original\real\attention_29232.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Bilateral\fake\TA_bilafilt28010.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Bilateral\fake\TA_bilafilt28048.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Bilateral\fake\TA_bilafilt28071.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Bilateral\fake\TA_bilafilt28133.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Bilateral\fake\TA_bilafilt28164.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Bilateral\fake\TA_bilafilt28188.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Bilateral\fake\TA_bilafilt28191.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Bilateral\fake\TA_bilafilt28201.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Bilateral\fake\TA_bilafilt28204.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Bilateral\fake\TA_bilafilt28205.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Bilateral\fake\TA_bilafilt28220.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Bilateral\fake\TA_bilafilt28231.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Bilateral\fake\TA_bilafilt28258.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Bilateral\fake\TA_bilafilt28262.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Bilateral\fake\TA_bilafilt28352.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Bilateral\fake\TA_bilafilt28489.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Bilateral\fake\TA_bilafilt28496.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Bilateral\fake\TA_bilafilt28499.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Bilateral\fake\TA_bilafilt28504.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Bilateral\fake\TA_bilafilt28512.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Bilateral\fake\TA_bilafilt28577.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Bilateral\fake\TA_bilafilt28650.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Bilateral\fake\TA_bilafilt28656.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Bilateral\fake\TA_bilafilt28667.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Bilateral\fake\TA_bilafilt28670.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Bilateral\fake\TA_bilafilt28676.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Bilateral\fake\TA_bilafilt28680.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Bilateral\fake\TA_bilafilt28722.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Bilateral\fake\TA_bilafilt28725.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Bilateral\fake\TA_bilafilt28780.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Bilateral\fake\TA_bilafilt28821.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Bilateral\fake\TA_bilafilt28825.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Bilateral\fake\TA_bilafilt28826.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Bilateral\fake\TA_bilafilt28827.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Bilateral\fake\TA_bilafilt28894.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Bilateral\fake\TA_bilafilt28901.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Bilateral\fake\TA_bilafilt28920.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Bilateral\fake\TA_bilafilt28924.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Bilateral\fake\TA_bilafilt28983.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Bilateral\fake\TA_bilafilt28985.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Bilateral\fake\TA_bilafilt28986.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Bilateral\fake\TA_bilafilt29000.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Bilateral\fake\TA_bilafilt29043.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Bilateral\fake\TA_bilafilt29044.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Bilateral\fake\TA_bilafilt29058.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Bilateral\fake\TA_bilafilt29094.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Bilateral\fake\TA_bilafilt29107.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Bilateral\fake\TA_bilafilt29193.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Bilateral\fake\TA_bilafilt29235.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Bilateral\fake\TA_bilafilt29302.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Bilateral\fake\TA_bilafilt29305.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Bilateral\fake\TA_bilafilt29339.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Bilateral\fake\TA_bilafilt29378.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Bilateral\fake\TA_bilafilt29418.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Bilateral\fake\TA_bilafilt29435.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Bilateral\fake\TA_bilafilt29474.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Bilateral\fake\TA_bilafilt29518.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Bilateral\fake\TA_bilafilt29612.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Bilateral\fake\TA_bilafilt29653.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Bilateral\fake\TA_bilafilt29659.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Bilateral\fake\TA_bilafilt29731.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Bilateral\fake\TA_bilafilt29734.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Bilateral\fake\TA_bilafilt29768.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Bilateral\fake\TA_bilafilt29816.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Bilateral\fake\TA_bilafilt29856.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Bilateral\fake\TA_bilafilt29865.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Bilateral\fake\TA_bilafilt29953.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Bilateral\fake\TA_bilafilt29958.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Bilateral\fake\TA_bilafilt29985.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Bilateral\fake\TA_bilafilt29989.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Bilateral\real\TA_bilafilt28001.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Bilateral\real\TA_bilafilt28008.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Bilateral\real\TA_bilafilt28042.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Bilateral\real\TA_bilafilt28043.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Bilateral\real\TA_bilafilt28044.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Bilateral\real\TA_bilafilt28045.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Bilateral\real\TA_bilafilt28046.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Bilateral\real\TA_bilafilt28047.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Bilateral\real\TA_bilafilt28048.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Bilateral\real\TA_bilafilt28091.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Bilateral\real\TA_bilafilt28092.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Bilateral\real\TA_bilafilt28094.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Bilateral\real\TA_bilafilt28095.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Bilateral\real\TA_bilafilt28096.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Bilateral\real\TA_bilafilt28138.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Bilateral\real\TA_bilafilt28139.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Bilateral\real\TA_bilafilt28140.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Bilateral\real\TA_bilafilt28141.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Bilateral\real\TA_bilafilt28142.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Bilateral\real\TA_bilafilt28143.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Bilateral\real\TA_bilafilt28144.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Bilateral\real\TA_bilafilt28189.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Bilateral\real\TA_bilafilt28190.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Bilateral\real\TA_bilafilt28191.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Bilateral\real\TA_bilafilt28192.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Bilateral\real\TA_bilafilt28234.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Bilateral\real\TA_bilafilt28235.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Bilateral\real\TA_bilafilt28236.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Bilateral\real\TA_bilafilt28237.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Bilateral\real\TA_bilafilt28238.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Bilateral\real\TA_bilafilt28239.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Bilateral\real\TA_bilafilt28240.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Bilateral\real\TA_bilafilt28301.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Bilateral\real\TA_bilafilt28302.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Bilateral\real\TA_bilafilt28303.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Bilateral\real\TA_bilafilt28304.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Bilateral\real\TA_bilafilt28305.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Bilateral\real\TA_bilafilt28306.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Bilateral\real\TA_bilafilt28307.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Bilateral\real\TA_bilafilt28376.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Bilateral\real\TA_bilafilt28377.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Bilateral\real\TA_bilafilt28378.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Bilateral\real\TA_bilafilt28379.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Bilateral\real\TA_bilafilt28380.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Bilateral\real\TA_bilafilt28381.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Bilateral\real\TA_bilafilt28382.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Bilateral\real\TA_bilafilt28385.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Bilateral\real\TA_bilafilt28386.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Bilateral\real\TA_bilafilt28387.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Bilateral\real\TA_bilafilt28388.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Bilateral\real\TA_bilafilt28397.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Bilateral\real\TA_bilafilt28398.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Bilateral\real\TA_bilafilt28399.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Bilateral\real\TA_bilafilt28400.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Bilateral\real\TA_bilafilt28483.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Bilateral\real\TA_bilafilt28484.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Bilateral\real\TA_bilafilt28485.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Bilateral\real\TA_bilafilt28486.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Bilateral\real\TA_bilafilt28487.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Bilateral\real\TA_bilafilt28488.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Bilateral\real\TA_bilafilt28489.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Bilateral\real\TA_bilafilt29142.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Bilateral\real\TA_bilafilt29143.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Bilateral\real\TA_bilafilt29144.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Bilateral\real\TA_bilafilt29145.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Bilateral\real\TA_bilafilt29146.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Bilateral\real\TA_bilafilt29183.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Bilateral\real\TA_bilafilt29184.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Bilateral\real\TA_bilafilt29185.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Bilateral\real\TA_bilafilt29232.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Original\fake\TA_28010.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Original\fake\TA_28048.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Original\fake\TA_28071.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Original\fake\TA_28133.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Original\fake\TA_28164.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Original\fake\TA_28188.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Original\fake\TA_28191.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Original\fake\TA_28201.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Original\fake\TA_28204.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Original\fake\TA_28205.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Original\fake\TA_28220.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Original\fake\TA_28231.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Original\fake\TA_28258.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Original\fake\TA_28262.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Original\fake\TA_28352.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Original\fake\TA_28489.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Original\fake\TA_28496.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Original\fake\TA_28499.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Original\fake\TA_28504.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Original\fake\TA_28512.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Original\fake\TA_28577.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Original\fake\TA_28650.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Original\fake\TA_28656.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Original\fake\TA_28667.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Original\fake\TA_28670.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Original\fake\TA_28676.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Original\fake\TA_28680.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Original\fake\TA_28722.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Original\fake\TA_28725.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Original\fake\TA_28780.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Original\fake\TA_28821.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Original\fake\TA_28825.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Original\fake\TA_28826.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Original\fake\TA_28827.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Original\fake\TA_28894.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Original\fake\TA_28901.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Original\fake\TA_28920.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Original\fake\TA_28924.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Original\fake\TA_28983.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Original\fake\TA_28985.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Original\fake\TA_28986.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Original\fake\TA_29000.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Original\fake\TA_29043.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Original\fake\TA_29044.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Original\fake\TA_29058.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Original\fake\TA_29094.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Original\fake\TA_29107.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Original\fake\TA_29193.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Original\fake\TA_29235.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Original\fake\TA_29302.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Original\fake\TA_29305.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Original\fake\TA_29339.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Original\fake\TA_29378.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Original\fake\TA_29418.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Original\fake\TA_29435.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Original\fake\TA_29474.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Original\fake\TA_29518.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Original\fake\TA_29612.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Original\fake\TA_29653.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Original\fake\TA_29659.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Original\fake\TA_29731.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Original\fake\TA_29734.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Original\fake\TA_29768.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Original\fake\TA_29816.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Original\fake\TA_29856.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Original\fake\TA_29865.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Original\fake\TA_29953.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Original\fake\TA_29958.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Original\fake\TA_29985.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Original\fake\TA_29989.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Original\real\TA_28001.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Original\real\TA_28008.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Original\real\TA_28042.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Original\real\TA_28043.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Original\real\TA_28044.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Original\real\TA_28045.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Original\real\TA_28046.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Original\real\TA_28047.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Original\real\TA_28048.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Original\real\TA_28091.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Original\real\TA_28092.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Original\real\TA_28094.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Original\real\TA_28095.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Original\real\TA_28096.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Original\real\TA_28138.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Original\real\TA_28139.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Original\real\TA_28140.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Original\real\TA_28141.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Original\real\TA_28142.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Original\real\TA_28143.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Original\real\TA_28144.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Original\real\TA_28189.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Original\real\TA_28190.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Original\real\TA_28191.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Original\real\TA_28192.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Original\real\TA_28234.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Original\real\TA_28235.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Original\real\TA_28236.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Original\real\TA_28237.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Original\real\TA_28238.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Original\real\TA_28239.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Original\real\TA_28240.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Original\real\TA_28301.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Original\real\TA_28302.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Original\real\TA_28303.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Original\real\TA_28304.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Original\real\TA_28305.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Original\real\TA_28306.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Original\real\TA_28307.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Original\real\TA_28376.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Original\real\TA_28377.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Original\real\TA_28378.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Original\real\TA_28379.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Original\real\TA_28380.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Original\real\TA_28381.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Original\real\TA_28382.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Original\real\TA_28385.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Original\real\TA_28386.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Original\real\TA_28387.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Original\real\TA_28388.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Original\real\TA_28397.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Original\real\TA_28398.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Original\real\TA_28399.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Original\real\TA_28400.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Original\real\TA_28483.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Original\real\TA_28484.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Original\real\TA_28485.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Original\real\TA_28486.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Original\real\TA_28487.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Original\real\TA_28488.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Original\real\TA_28489.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Original\real\TA_29142.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Original\real\TA_29143.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Original\real\TA_29144.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Original\real\TA_29145.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Original\real\TA_29146.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Original\real\TA_29183.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Original\real\TA_29184.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Original\real\TA_29185.png" />
+    <Content Include="Content\QuestionPhotos\TransformerAttribution\Original\real\TA_29232.png" />
+    <Content Include="favicon.ico" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Global.asax" />
+    <Content Include="Models\ExplainableAIDBModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ExplainableAIDBModel.edmx</DependentUpon>
+      <LastGenOutput>ExplainableAIDBModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\ExplainableAIDBModel.edmx.diagram">
+      <DependentUpon>ExplainableAIDBModel.edmx</DependentUpon>
+    </Content>
+    <Content Include="Models\ExplainableAIDBModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>ExplainableAIDBModel.cs</LastGenOutput>
+      <DependentUpon>ExplainableAIDBModel.edmx</DependentUpon>
+    </Content>
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Areas\HelpPage\Views\Web.config" />
+    <Content Include="Areas\HelpPage\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\HelpPage\Views\Help\ResourceModel.cshtml" />
+    <Content Include="Areas\HelpPage\Views\Help\Index.cshtml" />
+    <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\TextSample.cshtml" />
+    <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\SimpleTypeModelDescription.cshtml" />
+    <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\Samples.cshtml" />
+    <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\Parameters.cshtml" />
+    <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\ModelDescriptionLink.cshtml" />
+    <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\KeyValuePairModelDescription.cshtml" />
+    <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\InvalidSample.cshtml" />
+    <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\ImageSample.cshtml" />
+    <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\HelpPageApiModel.cshtml" />
+    <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\EnumTypeModelDescription.cshtml" />
+    <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\DictionaryModelDescription.cshtml" />
+    <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\ComplexTypeModelDescription.cshtml" />
+    <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\CollectionModelDescription.cshtml" />
+    <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\ApiGroup.cshtml" />
+    <Content Include="Areas\HelpPage\Views\Help\Api.cshtml" />
+    <Content Include="Areas\PersonController\Views\web.config" />
+    <None Include="Dockerfile" />
+    <None Include=".dockerignore">
+      <DependentUpon>Dockerfile</DependentUpon>
+    </None>
+    <EntityDeploy Include="Models\ExplainableAIDBModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>ExplainableAIDBModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="Properties\PublishProfiles\AISurvey - Web Deploy.pubxml" />
+    <None Include="Properties\PublishProfiles\AISurvey - Web Deploy1.pubxml" />
+    <None Include="Properties\PublishProfiles\AISurvey - Web Deploy2.pubxml" />
+    <None Include="Properties\PublishProfiles\AISurvey - Web Deploy3.pubxml" />
+    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
+    <None Include="Properties\PublishProfiles\IISProfile.pubxml" />
+    <None Include="Scripts\jquery-3.4.1.intellisense.js" />
+    <Content Include="Scripts\jquery-3.4.1.js" />
+    <Content Include="Scripts\jquery-3.4.1.min.js" />
+    <Content Include="Scripts\jquery-3.4.1.slim.js" />
+    <Content Include="Scripts\jquery-3.4.1.slim.min.js" />
+    <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Web.config" />
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Areas\HelpPage\Views\_ViewStart.cshtml" />
+    <Content Include="Content\Site.css" />
+    <Content Include="Views\Web.config" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="Areas\PersonController\Controllers\" />
+    <Folder Include="Areas\PersonController\Data\" />
+    <Folder Include="Areas\PersonController\Views\Shared\" />
+    <Folder Include="Content\UsersAnswers\1\q1\" />
+    <Folder Include="Content\UsersAnswers\1\q2\" />
+    <Folder Include="Content\UsersAnswers\1\q3\" />
+    <Folder Include="Content\UsersAnswers\1\q4\" />
+    <Folder Include="Content\UsersAnswers\1\q5\" />
+    <Folder Include="Content\UsersAnswers\1\q6\" />
+    <Folder Include="Views\Person\" />
+    <Folder Include="Views\Survey\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\bootstrap.min.css.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\bootstrap.css.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\bootstrap-theme.min.css.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\bootstrap-theme.css.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+    <Content Include="Scripts\jquery-3.4.1.slim.min.map" />
+    <Content Include="Scripts\jquery-3.4.1.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>52884</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>https://localhost:44372/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+    <Error Condition="!Exists('packages\EntityFramework.6.4.4\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', 'packages\EntityFramework.6.4.4\build\EntityFramework.props'))" />
+    <Error Condition="!Exists('packages\EntityFramework.6.4.4\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\EntityFramework.6.4.4\build\EntityFramework.targets'))" />
+    <Error Condition="!Exists('packages\Microsoft.VisualStudio.Azure.Containers.Tools.Targets.1.11.1\build\Microsoft.VisualStudio.Azure.Containers.Tools.Targets.props')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Microsoft.VisualStudio.Azure.Containers.Tools.Targets.1.11.1\build\Microsoft.VisualStudio.Azure.Containers.Tools.Targets.props'))" />
+    <Error Condition="!Exists('packages\Microsoft.VisualStudio.Azure.Containers.Tools.Targets.1.11.1\build\Microsoft.VisualStudio.Azure.Containers.Tools.Targets.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Microsoft.VisualStudio.Azure.Containers.Tools.Targets.1.11.1\build\Microsoft.VisualStudio.Azure.Containers.Tools.Targets.targets'))" />
+  </Target>
+  <Import Project="packages\EntityFramework.6.4.4\build\EntityFramework.targets" Condition="Exists('packages\EntityFramework.6.4.4\build\EntityFramework.targets')" />
+  <Import Project="packages\Microsoft.VisualStudio.Azure.Containers.Tools.Targets.1.11.1\build\Microsoft.VisualStudio.Azure.Containers.Tools.Targets.targets" Condition="Exists('packages\Microsoft.VisualStudio.Azure.Containers.Tools.Targets.1.11.1\build\Microsoft.VisualStudio.Azure.Containers.Tools.Targets.targets')" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+</Project>
