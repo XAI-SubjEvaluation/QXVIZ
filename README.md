@@ -1,5 +1,5 @@
 # SNIPPET
-The repo is to open source our framework, which is proposed for subjective evaluation of visually explainable artificial intelligence (XAI) methods.  And this repo will continuously update our related works and collected data.
+[The repo](https://github.com/XAI-SubjEvaluation/SNIPPET) is to open source our framework, which is proposed for subjective evaluation of visually explainable artificial intelligence (XAI) methods.  And this repo will continuously update our related works and collected data.
 
 ![image text](IMG/logo.png)
 
